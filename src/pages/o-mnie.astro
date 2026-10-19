@@ -1,0 +1,170 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+import Zdjecie from '../components/Zdjecie.astro';
+import Kreska from '../components/Kreska.astro';
+import Ikona from '../components/Ikona.astro';
+---
+
+<Uklad
+  tytul="O mnie"
+  opis="Izabela Knul – pedagożka, edukatorka, trenerka. Prowadzi szkolenia i warsztaty dla nauczycieli i dyrektorów, łącząc ich rozwój zawodowy z rozwojem osobistym."
+  pasekKontaktu={false}
+>
+  <!-- Tytuł strony i przedstawienie -->
+  <section class="sekcja o-mnie" aria-labelledby="o-mnie-tytul">
+    <div class="kontener">
+      <header class="o-mnie__tytul wycentrowane" data-pokaz>
+        <h1 id="o-mnie-tytul">O mnie</h1>
+        <Kreska />
+      </header>
+
+      <div class="przedstawienie">
+        <h2 class="przedstawienie__naglowek" data-pokaz>Nazywam się Izabela Knul</h2>
+
+        <div class="przedstawienie__zdjecie" data-pokaz style="--opoznienie: 0.15s">
+          <Zdjecie
+            plik="o-mnie-portret.jpg"
+            alt="Izabela Knul – uśmiechnięta kobieta w okularach, z ciemnymi włosami do ramion, w czarnym stroju, siedzi pochylona z brodą opartą na dłoni, na brązowo-szarym tle"
+            sizes="(min-width: 52rem) 28rem, (min-width: 30rem) 24rem, calc(100vw - 2.5rem)"
+            priorytet
+          />
+        </div>
+
+        <div class="przedstawienie__tekst" data-pokaz style="--opoznienie: 0.1s">
+          <p>Jestem pedagożką, edukatorką, trenerką. Moje doświadczenie ukształtowała praca z&nbsp;dziećmi, nauczycielami i&nbsp;rodzicami oraz przywilej&nbsp;– tak, przywilej&nbsp;– bycia dyrektorką szkoły (publicznej i&nbsp;niepublicznej) odpowiedzialną za ludzi, relacje i&nbsp;procesy.</p>
+          <p>Dziś prowadzę szkolenia i&nbsp;warsztaty dla nauczycieli i&nbsp;dyrektorów, podczas których <span class="wyr">łączę</span> ich <span class="wyr">rozwój zawodowy z&nbsp;rozwojem osobistym</span>. Pokazuję, w&nbsp;jaki sposób planować pracę, aby mieć poczucie wpływu i&nbsp;sprawczości. Uczę działania w&nbsp;oparciu o&nbsp;priorytety i&nbsp;pokazuję, że <span class="wyr">dbanie o&nbsp;siebie nie jest dodatkiem</span> do pracy nauczyciela i&nbsp;dyrektora, ale <span class="wyr">podstawą jej jakości.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wykształcenie i kwalifikacje -->
+  <section class="sekcja sekcja--piasek kwalifikacje">
+    <div class="kontener kontener--waski">
+      <ul class="lista kwalifikacje__lista">
+        <li data-pokaz>Jestem magistrem Pedagogiki wieku dziecięcego. Ukończyłam studia podyplomowe Zarządzanie Oświatą, Studia Podyplomowe Liderów Oświaty (SPLO) oraz Kurs Zarządzania Polskimi Szkołami za Granicą.</li>
+        <li data-pokaz style="--opoznienie: 0.1s">Posiadam kwalifikacje trenerskie&nbsp;– jestem trenerką biznesu, zwinnej zmiany gry coachingowej Heros Navigares®&nbsp;– Podróż Bohatera®.</li>
+        <li data-pokaz style="--opoznienie: 0.2s">Mam przygotowanie w&nbsp;zakresie <span class="wyr">prowadzenia procesów wspomagania rozwoju szkół i&nbsp;przedszkoli</span>. Stale rozwijam swoje kompetencje, uczestnicząc w&nbsp;szkoleniach dotyczących szeroko pojętej edukacji.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Motto i przyciski -->
+  <section class="sekcja motto" aria-labelledby="motto-haslo">
+    <div class="kontener wycentrowane">
+      <Kreska />
+      <h2 id="motto-haslo" class="haslo" data-pokaz>ŚRODOWISKO JEST TRZECIM NAUCZYCIELEM</h2>
+      <p class="motto__podtytul tekst" data-pokaz style="--opoznienie: 0.1s"><em>zaproś się do przestrzeni, w&nbsp;której relacje, proces i&nbsp;jakość naprawdę mają znaczenie</em></p>
+      <div class="przyciski" data-pokaz style="--opoznienie: 0.2s">
+        <a class="przycisk" href="/#oferta">Zobacz ofertę<Ikona nazwa="strzalka" /></a>
+        <a class="przycisk przycisk--obrys" href="/kontakt">Skontaktuj się</a>
+      </div>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  .o-mnie__tytul h1 {
+    font-size: clamp(2.75rem, 6vw + 1rem, 5.25rem);
+    margin-bottom: 0.25em;
+  }
+
+  .o-mnie__tytul :global(.kreska) {
+    margin-bottom: 0;
+  }
+
+  /* Telefon: nagłówek → zdjęcie → tekst (jak na obecnej stronie).
+     Komputer: nagłówek i tekst po lewej, portret po prawej. */
+  .przedstawienie {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-areas:
+      'naglowek'
+      'zdjecie'
+      'tekst';
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .przedstawienie__naglowek {
+    grid-area: naglowek;
+    margin: 0;
+    color: var(--braz);
+    text-align: center;
+  }
+
+  .przedstawienie__zdjecie {
+    grid-area: zdjecie;
+    width: 100%;
+    max-width: 24rem;
+    margin-inline: auto;
+  }
+
+  .przedstawienie__tekst {
+    grid-area: tekst;
+  }
+
+  .przedstawienie__tekst p {
+    font-size: clamp(1.125rem, 0.5vw + 1rem, 1.3rem);
+    line-height: 1.6;
+  }
+
+  @media (min-width: 52rem) {
+    .przedstawienie {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-rows: 1fr auto auto 1fr;
+      grid-template-areas:
+        '.        zdjecie'
+        'naglowek zdjecie'
+        'tekst    zdjecie'
+        '.        zdjecie';
+      column-gap: clamp(2.5rem, 5vw, 5rem);
+      row-gap: 1.5rem;
+    }
+
+    .przedstawienie__naglowek {
+      text-align: left;
+    }
+
+    .przedstawienie__zdjecie {
+      /* Plik ma tylko 503 px szerokości – nie powiększamy go ponad tę wielkość */
+      max-width: 28rem;
+      margin-inline: auto 0;
+    }
+  }
+
+  .kwalifikacje__lista {
+    margin: 0;
+  }
+
+  .kwalifikacje__lista li {
+    padding-left: 2.5rem;
+    margin-bottom: 1.4rem;
+    font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.25rem);
+  }
+
+  .kwalifikacje__lista li:last-child {
+    margin-bottom: 0;
+  }
+
+  .kwalifikacje__lista li::before {
+    width: 1.5rem;
+    height: 1.5rem;
+    top: 0.15em;
+    background-size: 0.85rem;
+  }
+
+  .motto .haslo {
+    margin: 0 0 1.25rem;
+  }
+
+  .motto__podtytul {
+    margin-inline: auto;
+    font-size: clamp(1.2rem, 1.2vw + 0.9rem, 1.75rem);
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  .motto .przyciski {
+    margin-top: 2.25rem;
+  }
+</style>
