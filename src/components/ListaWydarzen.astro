@@ -9,9 +9,12 @@ import { nadchodzaceWydarzenia, formatujDate } from '../lib/wydarzenia';
 interface Props {
   /** Dokąd prowadzi „Zapisz się”, gdy wydarzenie nie ma własnego linku */
   domyslnyZapis?: string;
+  /** Poziom nagłówka tytułu wydarzenia (2 gdy lista stoi zaraz pod h1) */
+  poziomNaglowka?: 2 | 3;
 }
 
-const { domyslnyZapis = '/kontakt' } = Astro.props;
+const { domyslnyZapis = '/kontakt', poziomNaglowka = 3 } = Astro.props;
+const Naglowek = poziomNaglowka === 2 ? 'h2' : 'h3';
 const wydarzenia = nadchodzaceWydarzenia();
 const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
 ---
@@ -25,7 +28,7 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
             <Zdjecie plik={w.zdjecie} alt="" sizes="(min-width: 48rem) 16rem, 100vw" class="wydarzenie__zdjecie" proporcje="3 / 2" />
           )}
           <div class="wydarzenie__tresc">
-            <h3>{w.tytul}</h3>
+            <Naglowek class="wydarzenie__tytul">{w.tytul}</Naglowek>
             <p class="wydarzenie__data">
               <Ikona nazwa="kalendarz" />
               <span>
@@ -110,8 +113,9 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
     }
   }
 
-  .wydarzenie h3 {
+  .wydarzenie__tytul {
     margin-bottom: 0.5rem;
+    font-size: clamp(1.3rem, 1vw + 1rem, 1.75rem);
   }
 
   .wydarzenie__data,
@@ -136,7 +140,10 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
   }
 
   .wydarzenia__brak {
-    padding: 1.5rem;
+    max-width: 44rem;
+    margin-inline: auto;
+    text-wrap: balance;
+    padding: clamp(1.5rem, 4vw, 2.25rem);
     border-radius: var(--zaokraglenie);
     background: var(--piasek);
     font-weight: 700;

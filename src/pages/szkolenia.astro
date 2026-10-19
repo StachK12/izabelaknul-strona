@@ -1,0 +1,569 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+import Zdjecie from '../components/Zdjecie.astro';
+import Marka from '../components/Marka.astro';
+import Kreska from '../components/Kreska.astro';
+import Ikona from '../components/Ikona.astro';
+import Formularz from '../components/Formularz.astro';
+import { strona } from '../data/strona';
+
+// Opcje listy „Wybierz interesujące Cię szkolenie” (jak na obecnej stronie).
+// Przyciski „Zapisz się na szkolenie” zaznaczają od razu właściwą pozycję (data-wybierz).
+const szkolenia = {
+  ocenianie: 'Ocenianie kształtujące',
+  jednaKlasa: 'Jedna klasa – wiele potrzeb',
+  podstawa: 'Nowa podstawa programowa w praktyce przedszkolnej i wczesnoszkolnej',
+  zmiana: 'Od wyzwania do zmiany',
+  rodzic: 'Co każdy rodzic powinien wiedzieć?',
+};
+
+const adresStrony = `${strona.adresStrony}/szkolenia`;
+const organizacja = { '@id': `${strona.adresStrony}/#organizacja` };
+const kursy = [
+  {
+    id: 'ocenianie-ksztaltujace',
+    nazwa: szkolenia.ocenianie,
+    opis: 'Budowanie przestrzeni na osiąganie przez uczniów celów edukacyjnych.',
+    czas: 'PT3H',
+  },
+  {
+    id: 'jedna-klasa',
+    nazwa: szkolenia.jednaKlasa,
+    opis: 'Praca z klasą różnorodną i profilaktyka wypalenia zawodowego nauczyciela.',
+    czas: 'PT3H',
+  },
+  {
+    id: 'nowa-podstawa',
+    nazwa: szkolenia.podstawa,
+    opis: 'Rozwijanie kompetencji fundamentalnych, przekrojowych i sprawczości dzieci.',
+    czas: 'PT3H',
+  },
+  {
+    id: 'od-wyzwania-do-zmiany',
+    nazwa: szkolenia.zmiana,
+    opis: 'Określanie celów szkoły/przedszkola na podstawie wniosków z nadzoru i planowanie pracy w oparciu o grę coachingową Heros Navigares® – Podróż Bohatera®.',
+    czas: 'PT4H',
+  },
+];
+const daneStrukturalne = kursy.map((kurs) => ({
+  '@type': 'Course',
+  '@id': `${adresStrony}#${kurs.id}`,
+  url: `${adresStrony}#${kurs.id}`,
+  name: kurs.nazwa,
+  description: kurs.opis,
+  inLanguage: 'pl-PL',
+  timeRequired: kurs.czas,
+  provider: organizacja,
+}));
+---
+
+<Uklad
+  tytul="Szkolenia stacjonarne w Twojej placówce"
+  opis="Szkolenia stacjonarne w Twojej placówce: ocenianie kształtujące, praca z klasą różnorodną, nowa podstawa programowa i gra coachingowa „Podróż Bohatera”®."
+  zdjecieOg="szkolenie-sala.jpg"
+  pasekKontaktu={false}
+  daneStrukturalne={daneStrukturalne}
+>
+  <!-- Tytuł strony i karty szkoleń (dawniej wSection_49) -->
+  <section class="sekcja otwarcie" aria-labelledby="szkolenia-tytul">
+    <div class="kontener">
+      <header class="otwarcie__naglowek wycentrowane" data-pokaz>
+        <Kreska />
+        <h1 id="szkolenia-tytul">SZKOLENIA STACJONARNE W&nbsp;TWOJEJ PLACÓWCE</h1>
+      </header>
+
+      <nav class="karty-szkolen" aria-label="Szkolenia na tej stronie">
+        <ul class="karty-szkolen__lista">
+          <li class="karta karta-szkolenia" data-pokaz>
+            <p class="karta-szkolenia__tytul">OCENIANIE KSZTAŁTUJĄCE.</p>
+            <p class="karta-szkolenia__opis">BUDOWANIE PRZESTRZENI NA OSIĄGANIE PRZEZ UCZNIÓW CELÓW EDUKACYJNYCH.</p>
+            <div class="przyciski">
+              <a class="przycisk przycisk--obrys" href="#ocenianie-ksztaltujace">Dowiedz się więcej<span class="sr-only"> o szkoleniu „Ocenianie kształtujące”</span><Ikona nazwa="strzalka" class="w-dol" /></a>
+            </div>
+          </li>
+          <li class="karta karta-szkolenia" data-pokaz style="--opoznienie: 0.08s">
+            <p class="karta-szkolenia__tytul">JEDNA KLASA&nbsp;– WIELE POTRZEB.</p>
+            <p class="karta-szkolenia__opis">PRACA Z&nbsp;KLASĄ RÓŻNORODNĄ I&nbsp;PROFILAKTYKA WYPALENIA ZAWODOWEGO NAUCZYCIELA.</p>
+            <div class="przyciski">
+              <a class="przycisk przycisk--obrys" href="#jedna-klasa">Dowiedz się więcej<span class="sr-only"> o szkoleniu „Jedna klasa – wiele potrzeb”</span><Ikona nazwa="strzalka" class="w-dol" /></a>
+            </div>
+          </li>
+          <li class="karta karta-szkolenia" data-pokaz style="--opoznienie: 0.16s">
+            <p class="karta-szkolenia__tytul">NOWA PODSTAWA PROGRAMOWA W&nbsp;PRAKTYCE PRZEDSZKOLNEJ I&nbsp;WCZESNOSZKOLNEJ.</p>
+            <p class="karta-szkolenia__opis">ROZWIJANIE KOMPETENCJI FUNDAMENTALNYCH, PRZEKROJOWYCH I&nbsp;SPRAWCZOŚCI DZIECI</p>
+            <div class="przyciski">
+              <a class="przycisk przycisk--obrys" href="#nowa-podstawa">Dowiedz się więcej<span class="sr-only"> o szkoleniu „Nowa podstawa programowa w praktyce przedszkolnej i wczesnoszkolnej”</span><Ikona nazwa="strzalka" class="w-dol" /></a>
+            </div>
+          </li>
+          <li class="karta karta-szkolenia" data-pokaz style="--opoznienie: 0.24s">
+            <p class="karta-szkolenia__tytul">OD WYZWANIA DO ZMIANY</p>
+            <p class="karta-szkolenia__opis">OKREŚLANIE CELÓW SZKOŁY/PRZEDSZKOLA NA PODSTAWIE WNIOSKÓW Z&nbsp;NADZORU I&nbsp;PLANOWANIE PRACY W&nbsp;OPARCIU O&nbsp;GRĘ COACHINGOWĄ HEROS NAVIGARES®&nbsp;– PODRÓŻ BOHATERA®</p>
+            <div class="przyciski">
+              <a class="przycisk przycisk--obrys" href="#od-wyzwania-do-zmiany">Dowiedz się więcej<span class="sr-only"> o szkoleniu „Od wyzwania do zmiany”</span><Ikona nazwa="strzalka" class="w-dol" /></a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Podejście do szkoleń (dawniej wSection_52) -->
+  <section class="sekcja sekcja--piasek podejscie">
+    <div class="kontener">
+      <div class="podejscie__uklad">
+        <div class="podejscie__tekst" data-pokaz>
+          <p class="podejscie__teza"><em><strong>KAŻDY SCENARIUSZ SZKOLENIA TWORZĘ OSOBIŚCIE, DBAJĄC O&nbsp;JEGO REALNE OSADZENIE W&nbsp;CODZIENNOŚCI POLSKIEJ SZKOŁY.</strong></em></p>
+          <p class="podejscie__opis"><em>PRACUJĘ W&nbsp;OPARCIU O&nbsp;AKTUALNE BADANIA EDUKACYJNE (EVIDENCE‑BASED), NOWOCZESNE TRENDY W&nbsp;EDUKACJI ORAZ TO, CO DZIŚ JEST NAPRAWDĘ KLUCZOWE DLA NAUCZYCIELI I&nbsp;UCZNIÓW&nbsp;— ICH DOBROSTAN, SPRAWCZOŚĆ I&nbsp;SENS UCZENIA SIĘ.</em></p>
+        </div>
+        <div class="podejscie__zdjecie" data-pokaz style="--opoznienie: 0.15s">
+          <Zdjecie
+            plik="portret-czarny-stroj.jpg"
+            alt="Portret Izabeli Knul w czarnym stroju, uśmiechniętej, z okularami w uniesionej dłoni, na gładkim szarobrązowym tle"
+            sizes="(min-width: 52rem) 26rem, (min-width: 30rem) 24rem, calc(100vw - 2.5rem)"
+            proporcje="3 / 4"
+            kadr="50% 30%"
+          />
+        </div>
+      </div>
+
+      <div class="podejscie__haslo wycentrowane" data-pokaz>
+        <Kreska />
+        <p class="haslo">ŁĄCZĘ RZETELNĄ MERYTORYKĘ Z&nbsp;PRAKTYKĄ SZKOLNĄ, UWAŻNOŚCIĄ NA LUDZI I&nbsp;DBAŁOŚCIĄ O&nbsp;PROCES</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szkolenie 1: Ocenianie kształtujące (dawniej wSection_54) -->
+  <section class="sekcja szkolenie" id="ocenianie-ksztaltujace" aria-labelledby="ocenianie-ksztaltujace-tytul">
+    <div class="kontener">
+      <div class="szkolenie__gora">
+        <div class="szkolenie__zdjecie" data-pokaz>
+          <Zdjecie
+            plik="szkolenie-ocenianie-ksztaltujace.jpg"
+            alt="Uczestniczka szkolenia zaznacza zielonym zakreślaczem kolorowe owale na arkuszu ćwiczeniowym – praca warsztatowa z ocenianiem kształtującym"
+            sizes="(min-width: 75rem) 33rem, (min-width: 52rem) 45vw, calc(100vw - 2.5rem)"
+            proporcje="4 / 3"
+            kadr="45% 45%"
+          />
+        </div>
+        <div class="szkolenie__tresc" data-pokaz style="--opoznienie: 0.1s">
+          <h2 id="ocenianie-ksztaltujace-tytul" class="szkolenie__tytul">OCENIANIE KSZTAŁTUJĄCE.</h2>
+          <p class="szkolenie__podtytul">BUDOWANIE PRZESTRZENI NA OSIĄGANIE PRZEZ UCZNIÓW CELÓW EDUKACYJNYCH.</p>
+          <h3 class="szkolenie__korzysci">Co zyskasz dzięki udziałowi w&nbsp;szkoleniu?</h3>
+          <ul class="lista">
+            <li>Nauczysz się formułować cele lekcji w&nbsp;języku zrozumiałym dla uczniów.</li>
+            <li>Stworzysz jasne i&nbsp;sprawdzalne kryteria sukcesu, które realnie wspierają uczenie się.</li>
+            <li>Uporządkujesz sposób udzielania informacji zwrotnej tak, by była wspierająca i&nbsp;zgodna z&nbsp;ideą oceniania kształtującego.</li>
+            <li>Wypracujesz konkretne rozwiązania obejmujące wszystkie pięć strategii oceniania kształtującego.</li>
+            <li>Opracujesz realny plan wdrażania oceniania kształtującego we współpracy z&nbsp;innymi nauczycielami.</li>
+          </ul>
+          <dl class="metryczka">
+            <div><dt>Dla kogo?</dt><dd>nauczyciele wszystkich etapów edukacyjnych</dd></div>
+            <div><dt>Czas trwania:</dt><dd>3&nbsp;godziny zegarowe</dd></div>
+            <div><dt>Miejsce realizacji:</dt><dd>Twoja placówka lub <a href="/czas-do-lasu"><Marka /></a></dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="szkolenie__dol" data-pokaz>
+        <p>Ocenianie kształtujące (formative assessment) to podejście do oceniania, z&nbsp;którym pracuję na co dzień, ponieważ realnie <strong>wspiera uczenie się w&nbsp;trakcie jego trwania (także uczenie się dorosłych!)</strong>, a&nbsp;nie tylko je podsumowuje. Podczas szkolenia pokazuję, jak świadomie zbierać informacje o&nbsp;postępach uczniów i&nbsp;wykorzystywać je do planowania procesu uczenia się.</p>
+        <p>Na spotkaniu pracujemy intensywnie i&nbsp;warsztatowo, także z&nbsp;wykorzystaniem <strong>własnych materiałów nauczycieli</strong>, aby wypracowane rozwiązania były możliwe do zastosowania od razu w&nbsp;codziennej praktyce.</p>
+        <div class="przyciski">
+          <a class="przycisk" href="#zapisy" data-wybierz={szkolenia.ocenianie}>Zapisz się na szkolenie<span class="sr-only"> „Ocenianie kształtujące”</span><Ikona nazwa="strzalka" /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szkolenie 2: Jedna klasa – wiele potrzeb (dawniej wSection_56) -->
+  <section class="sekcja sekcja--piasek szkolenie szkolenie--odwrotnie" id="jedna-klasa" aria-labelledby="jedna-klasa-tytul">
+    <div class="kontener">
+      <div class="szkolenie__gora">
+        <div class="szkolenie__zdjecie" data-pokaz>
+          <Zdjecie
+            plik="szkolenie-jedna-klasa.jpg"
+            alt="Prowadząca w zielonym żakiecie pochyla się nad stolikiem i rozmawia z uczestniczkami szkolenia dla nauczycieli"
+            sizes="(min-width: 75rem) 33rem, (min-width: 52rem) 45vw, calc(100vw - 2.5rem)"
+            proporcje="4 / 3"
+            kadr="40% 50%"
+          />
+        </div>
+        <div class="szkolenie__tresc" data-pokaz style="--opoznienie: 0.1s">
+          <h2 id="jedna-klasa-tytul" class="szkolenie__tytul">JEDNA KLASA&nbsp;– WIELE POTRZEB.</h2>
+          <p class="szkolenie__podtytul">JAK PRACOWAĆ Z&nbsp;KLASĄ RÓŻNORODNĄ I&nbsp;NIE WYPALIĆ SIĘ JAKO NAUCZYCIEL?</p>
+          <h3 class="szkolenie__korzysci">Co zyskasz dzięki udziałowi w&nbsp;szkoleniu?</h3>
+          <ul class="lista">
+            <li>Zidentyfikujesz i&nbsp;uporządkujesz potrzeby swojej klasy, aby skuteczniej planować pracę dydaktyczną.</li>
+            <li>Dobierzesz strategie pracy adekwatne do różnorodnych potrzeb uczniów.</li>
+            <li>Zaprojektujesz rutyny i&nbsp;zasady, które zwiększą przewidywalność, bezpieczeństwo i&nbsp;efektywność lekcji.</li>
+            <li>Nauczysz się rozpoznawać własne sygnały przeciążenia i&nbsp;dobierać konkretne działania wspierające Twój dobrostan.</li>
+            <li>Zaplanujesz współpracę z&nbsp;innymi nauczycielami jako realny system wsparcia i&nbsp;przeciwdziałania wypaleniu.</li>
+          </ul>
+          <dl class="metryczka">
+            <div><dt>Dla kogo?</dt><dd>nauczyciele wszystkich poziomów edukacyjnych</dd></div>
+            <div><dt>Czas trwania:</dt><dd>3&nbsp;godziny zegarowe</dd></div>
+            <div><dt>Miejsce realizacji:</dt><dd>Twoja placówka lub <a href="/czas-do-lasu"><Marka /></a></dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="szkolenie__dol" data-pokaz>
+        <p>To szkolenie pomaga odzyskać <strong>poczucie wpływu i&nbsp;sprawczości</strong>, uczy działać w&nbsp;oparciu o&nbsp;priorytety i&nbsp;pokazuje, że <strong>dbanie o&nbsp;siebie nie jest dodatkiem do pracy nauczyciela, ale podstawą jej jakości.</strong></p>
+        <p>Podczas spotkania porządkujemy pracę dydaktyczną: budujemy strukturę, rutyny i&nbsp;zasady, które dają bezpieczeństwo uczniom, a&nbsp;nauczycielowi zdejmują część codziennego napięcia. Równolegle przyglądamy się temu, co dzieje się z&nbsp;nauczycielem&nbsp;– jego zasobom, granicom i&nbsp;sygnałom przeciążenia. Kluczowym elementem jest tu <strong>profilaktyka wypalenia zawodowego</strong>.</p>
+        <p>Pracujemy w&nbsp;oparciu o&nbsp;<strong>realne sytuacje z&nbsp;klas</strong>, tak aby każdy mógł wyjść z&nbsp;<strong>konkretnymi rozwiązaniami dopasowanymi do swojej grupy.</strong></p>
+        <div class="przyciski">
+          <a class="przycisk" href="#zapisy" data-wybierz={szkolenia.jednaKlasa}>Zapisz się na szkolenie<span class="sr-only"> „Jedna klasa – wiele potrzeb”</span><Ikona nazwa="strzalka" /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szkolenie 3: Nowa podstawa programowa (dawniej wSection_57) -->
+  <section class="sekcja szkolenie" id="nowa-podstawa" aria-labelledby="nowa-podstawa-tytul">
+    <div class="kontener">
+      <div class="szkolenie__gora">
+        <div class="szkolenie__zdjecie" data-pokaz>
+          <Zdjecie
+            plik="szkolenie-sala.jpg"
+            alt="Prowadząca przy flipcharcie z napisem „UCZUCIA” podczas szkolenia w sali konferencyjnej pełnej uczestników"
+            sizes="(min-width: 75rem) 33rem, (min-width: 52rem) 45vw, calc(100vw - 2.5rem)"
+            proporcje="4 / 3"
+            kadr="40% 60%"
+          />
+        </div>
+        <div class="szkolenie__tresc" data-pokaz style="--opoznienie: 0.1s">
+          <h2 id="nowa-podstawa-tytul" class="szkolenie__tytul">NOWA PODSTAWA PROGRAMOWA W&nbsp;PRAKTYCE PRZEDSZKOLNEJ I&nbsp;WCZESNOSZKOLNEJ</h2>
+          <p class="szkolenie__podtytul">ROZWIJANIE KOMPETENCJI FUNDAMENTALNYCH, PRZEKROJOWYCH I&nbsp;SPRAWCZOŚCI DZIECI</p>
+          <h3 class="szkolenie__korzysci">Co zyskasz dzięki udziałowi w&nbsp;szkoleniu?</h3>
+          <ul class="lista">
+            <li>Zrozumiesz założenia nowej podstawy programowej wychowania przedszkolnego.</li>
+            <li>Nauczysz się interpretować zapisy podstawy w&nbsp;odniesieniu do własnej praktyki.</li>
+            <li>Zaprojektujesz doświadczenia edukacyjne wspierające rozwój dzieci, także tych ze specjalnymi potrzebami edukacyjnymi.</li>
+            <li>Będziesz stosować cele w&nbsp;języku dziecka, adekwatne kryteria sukcesu i&nbsp;informację zwrotną.</li>
+            <li>Stworzysz środowisko sprzyjające sprawczości i&nbsp;dobrostanowi dziecka.</li>
+            <li>Zaplanujesz pracę w&nbsp;oparciu o&nbsp;kompetencje fundamentalne, przekrojowe i&nbsp;sprawczość dziecka, zgodnie z&nbsp;nową podstawą programową.</li>
+          </ul>
+          <dl class="metryczka">
+            <div><dt>Dla kogo?</dt><dd>nauczyciele przedszkoli i&nbsp;edukacji wczesnoszkolnej</dd></div>
+            <div><dt>Czas trwania:</dt><dd>3&nbsp;godziny zegarowe</dd></div>
+            <div><dt>Miejsce realizacji:</dt><dd>Twoja placówka lub <a href="/czas-do-lasu"><Marka /></a></dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="szkolenie__dol" data-pokaz>
+        <p>Pokazuję, jak myśleć o&nbsp;planowaniu w&nbsp;<strong>kategoriach kompetencji (fundamentalnych, przekrojowych), doświadczeń edukacyjnych i&nbsp;sprawczości dziecka</strong>, a&nbsp;nie wyłącznie realizacji treści podstawy programowej.</p>
+        <p>Skupiam się na sensownym przełożeniu zapisów dokumentu na codzienne decyzje nauczyciela. Pracujemy nad tym, co z&nbsp;<strong>podstawy programowej</strong> naprawdę wynika dla dziecka, nauczyciela i&nbsp;organizacji pracy w&nbsp;przedszkolu i&nbsp;w&nbsp;szkole.</p>
+        <p>Podczas pracy warsztatowej wspieram nauczycieli w&nbsp;projektowaniu realnych rozwiązań do swojej praktyki&nbsp;– od formułowania celów w&nbsp;języku dziecka, przez dobór kryteriów sukcesu i&nbsp;informacji zwrotnej, po <strong>budowanie środowiska sprzyjającego rozwojowi i&nbsp;dobrostanowi.</strong></p>
+        <div class="przyciski">
+          <a class="przycisk" href="#zapisy" data-wybierz={szkolenia.podstawa}>Zapisz się na szkolenie<span class="sr-only"> „Nowa podstawa programowa w praktyce przedszkolnej i wczesnoszkolnej”</span><Ikona nazwa="strzalka" /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szkolenie 4: Od wyzwania do zmiany (dawniej wSection_58) -->
+  <section class="sekcja sekcja--piasek szkolenie szkolenie--odwrotnie" id="od-wyzwania-do-zmiany" aria-labelledby="od-wyzwania-do-zmiany-tytul">
+    <div class="kontener">
+      <div class="szkolenie__gora">
+        <div class="szkolenie__zdjecie" data-pokaz>
+          <Zdjecie
+            plik="szkolenie-podroz-bohatera.jpg"
+            alt="Elementy gry coachingowej „Podróż Bohatera” na stole w lesie: drewniany model żaglowca i kostka z pytaniem „Czego nie chcę usłyszeć?”"
+            sizes="(min-width: 75rem) 33rem, (min-width: 52rem) 45vw, calc(100vw - 2.5rem)"
+            proporcje="4 / 3"
+            kadr="45% 60%"
+          />
+        </div>
+        <div class="szkolenie__tresc" data-pokaz style="--opoznienie: 0.1s">
+          <h2 id="od-wyzwania-do-zmiany-tytul" class="szkolenie__tytul">OD WYZWANIA DO ZMIANY.</h2>
+          <p class="szkolenie__podtytul">JAK Z&nbsp;UWAŻNOŚCIĄ PODSUMOWAĆ DZIAŁANIA I&nbsp;ZAPLANOWAĆ KOLEJNY KROK ZESPOŁU?</p>
+          <h3 class="szkolenie__korzysci">Co zyskasz dzięki udziałowi w&nbsp;szkoleniu?</h3>
+          <ul class="lista">
+            <li>Skonkretyzujesz cel i&nbsp;określisz wizję zmiany, nad którą pracuje Twój zespół.</li>
+            <li>Odniesiesz się do wartości&nbsp;– swoich oraz wartości organizacji&nbsp;– i&nbsp;sprawdzisz, jak są obecne w&nbsp;codziennej praktyce.</li>
+            <li>Przyjrzysz się zasobom zespołu i&nbsp;zobaczysz, kto, w&nbsp;jakim obszarze i&nbsp;w&nbsp;jaki sposób może wspierać proces zmiany.</li>
+            <li>Nazwiesz to, co utrudnia osiągnięcie celu, i&nbsp;poszukasz sposobów, by przekuć trudności w&nbsp;realny zasób.</li>
+            <li>Zaplanujesz strategię osiągnięcia celu: działania, sojuszników i&nbsp;kolejność kroków.</li>
+            <li>Zainicjujesz lub realnie wprowadzisz zmianę w&nbsp;swojej organizacji.</li>
+            <li>Nauczysz się prostych sposobów dbania o&nbsp;własny dobrostan w&nbsp;codziennej pracy szkolnej.</li>
+          </ul>
+          <dl class="metryczka">
+            <div><dt>Dla kogo?</dt><dd>rady pedagogiczne, zespoły liderów</dd></div>
+            <div><dt>Czas trwania:</dt><dd>4&nbsp;godziny zegarowe</dd></div>
+            <div><dt>Miejsce realizacji:</dt><dd>Twoja placówka edukacyjna</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="szkolenie__dol" data-pokaz>
+        <p>To szkolenie stanowi <strong>świadomą alternatywę dla klasycznego, ramowego posiedzenia rady pedagogicznej</strong>, na którym decyzje często zapadają „przy stole”, a&nbsp;planowanie sprowadza się do omówienia dokumentów i&nbsp;harmonogramów. Zamiast biernego udziału proponuję proces, w&nbsp;którym <strong>każdy nauczyciel jest realnie włączony w&nbsp;myślenie, planowanie i&nbsp;współodpowiedzialność za zmianę</strong>.</p>
+        <p>Pracujemy w&nbsp;oparciu o&nbsp;<strong>grę coachingową „Podróż Bohatera”®</strong>, która porządkuje rozmowę zespołu i&nbsp;nadaje planowaniu jasną, logiczną strukturę. Planowanie pracy szkoły przestaje być abstrakcyjne czy odgórne, a&nbsp;staje się procesem, w&nbsp;którym zespół wspólnie definiuje cele, wartości, zasoby i&nbsp;przeszkody, a&nbsp;następnie projektuje konkretne działania. To <strong>nowatorskie podejście do pracy rady pedagogicznej</strong>, które sprzyja dialogowi, zaangażowaniu i&nbsp;realnemu wdrażaniu decyzji&nbsp;– z&nbsp;uważnością na ludzi, relacje i&nbsp;dobrostan nauczycieli.</p>
+        <div class="przyciski">
+          <a class="przycisk" href="#zapisy" data-wybierz={szkolenia.zmiana}>Zapisz się na szkolenie<span class="sr-only"> „Od wyzwania do zmiany”</span><Ikona nazwa="strzalka" /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formularz zapisu (dawniej wSection_73) -->
+  <section class="sekcja zapisy" id="zapisy" aria-labelledby="zapisy-naglowek">
+    <div class="kontener kontener--waski">
+      <Kreska />
+      <h2 id="zapisy-naglowek" class="wycentrowane">Zapisz się na szkolenie</h2>
+      <div class="karta karta--biala" data-pokaz>
+        <Formularz
+          nazwa="zapis-szkolenia"
+          temat="Zapis na szkolenie – Dla szkoły"
+          komunikatSukcesu="Dziękuję, zgłoszenie zostało wysłane."
+          listy={[
+            {
+              etykieta: 'Wybierz interesujące Cię szkolenie',
+              nazwa: 'szkolenie',
+              opcje: [szkolenia.ocenianie, szkolenia.jednaKlasa, szkolenia.podstawa, szkolenia.zmiana, szkolenia.rodzic],
+              wymagane: true,
+            },
+            {
+              etykieta: 'Miejsce realizacji szkolenia',
+              nazwa: 'miejsce',
+              opcje: ['Stacjonarne – w mojej placówce', 'Outdoorowe – przyjeżdżam do czasdolasu'],
+              wymagane: true,
+            },
+          ]}
+          wiadomoscWymagana={false}
+        />
+      </div>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  /* ---------- Tytuł strony i karty szkoleń ---------- */
+
+  .otwarcie__naglowek h1 {
+    max-width: 22ch;
+    margin-inline: auto;
+    color: var(--braz);
+    font-size: clamp(2rem, 3.6vw + 1rem, 3.75rem);
+  }
+
+  .karty-szkolen {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .karty-szkolen__lista {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 44rem) {
+    .karty-szkolen__lista {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .karta-szkolenia {
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid var(--zloto);
+  }
+
+  .karta-szkolenia__tytul {
+    margin-bottom: 0.9rem;
+    font-size: clamp(1.3rem, 0.9vw + 1rem, 1.6rem);
+    font-weight: 750;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .karta-szkolenia__opis {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+  }
+
+  .karta-szkolenia :global(.w-dol) {
+    transform: rotate(90deg);
+  }
+
+  /* ---------- Podejście ---------- */
+
+  .podejscie__uklad {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 52rem) {
+    .podejscie__uklad {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+  }
+
+  .podejscie__teza {
+    font-size: clamp(1.3rem, 1.4vw + 0.95rem, 1.9rem);
+    line-height: 1.3;
+  }
+
+  .podejscie__teza strong {
+    font-weight: 750;
+  }
+
+  .podejscie__opis {
+    margin-top: 1.5rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--zloto);
+    font-size: clamp(1.05rem, 0.5vw + 0.95rem, 1.3rem);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+  }
+
+  .podejscie__zdjecie {
+    width: 100%;
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 52rem) {
+    .podejscie__zdjecie {
+      margin-inline: auto 0;
+    }
+  }
+
+  .podejscie__haslo {
+    margin-top: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .podejscie__haslo .haslo {
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+
+  /* ---------- Sekcje szkoleń ---------- */
+
+  .szkolenie__gora {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (min-width: 52rem) {
+    .szkolenie__gora {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    }
+
+    .szkolenie--odwrotnie .szkolenie__gora {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+
+    .szkolenie--odwrotnie .szkolenie__zdjecie {
+      order: 2;
+    }
+
+    .szkolenie__zdjecie {
+      position: sticky;
+      top: calc(var(--naglowek-wysokosc) + 1.5rem);
+    }
+  }
+
+  .szkolenie__tytul {
+    margin-bottom: 0.75rem;
+    color: var(--braz);
+    font-size: clamp(1.6rem, 1.8vw + 1rem, 2.4rem);
+  }
+
+  .szkolenie__podtytul {
+    margin-bottom: 1.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  .szkolenie__korzysci {
+    margin-bottom: 1rem;
+    font-size: clamp(1.15rem, 0.5vw + 1rem, 1.35rem);
+  }
+
+  .szkolenie .lista {
+    margin-bottom: 1.75rem;
+  }
+
+  /* Dla kogo? / Czas trwania: / Miejsce realizacji: */
+  .metryczka {
+    display: grid;
+    gap: 0.85rem;
+    margin: 0;
+    padding: 1.25rem 1.4rem;
+    border-radius: var(--zaokraglenie);
+    background: var(--piasek);
+  }
+
+  .sekcja--piasek .metryczka {
+    background: var(--bialy);
+  }
+
+  .metryczka > div {
+    display: grid;
+    gap: 0.1rem 1rem;
+  }
+
+  /* Etykiety obok wartości tylko wtedy, gdy ramka jest dość szeroka */
+  .metryczka {
+    container-type: inline-size;
+  }
+
+  @container (min-width: 28rem) {
+    .metryczka > div {
+      grid-template-columns: 10.5rem minmax(0, 1fr);
+    }
+  }
+
+  .metryczka dt {
+    font-weight: 700;
+    color: var(--braz);
+  }
+
+  .metryczka dd {
+    margin: 0;
+  }
+
+  .metryczka a {
+    text-decoration-color: var(--zloto);
+  }
+
+  .szkolenie__dol {
+    max-width: var(--szerokosc-tekstu);
+    margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  }
+
+  .szkolenie__dol .przyciski {
+    justify-content: center;
+    margin-top: 2.25rem;
+  }
+
+  /* ---------- Formularz ---------- */
+
+  .zapisy h2 {
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  /* Na wąskim telefonie więcej miejsca na długie opcje list wyboru */
+  .zapisy .karta {
+    padding-inline: clamp(1rem, 4vw, 2.25rem);
+  }
+
+  @media (max-width: 24rem) {
+    .zapisy .karta {
+      padding-inline: 0.85rem;
+    }
+
+    .zapisy :global(.pole select) {
+      padding-right: 2.4rem;
+      font-size: 1rem;
+    }
+  }
+</style>

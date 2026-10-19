@@ -1,0 +1,217 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+import Zdjecie from '../components/Zdjecie.astro';
+import Marka from '../components/Marka.astro';
+import Kreska from '../components/Kreska.astro';
+import Ikona from '../components/Ikona.astro';
+---
+
+<Uklad
+  tytul="Dla rodziców"
+  opis="Jak być obecnym i wystarczająco dobrym rodzicem? Co każdy rodzic powinien wiedzieć – przewodnik po szkole w pigułce. Przestrzeń dla kobiet w czasdolasu."
+>
+  <!-- Wstęp: przestrzeń dla kobiet (dawniej wSection_43) -->
+  <section class="sekcja wstep">
+    <div class="kontener dwie-kolumny dwie-kolumny--odwrotnie wstep__uklad">
+      <div class="wstep__tekst" data-pokaz>
+        <p>W <strong><Marka /></strong> jest także przestrzeń dla kobiet, która powstała z&nbsp;mojego realnego doświadczenia – wieloletniej pracy pedagożki&nbsp;i edukatorki.</p>
+      </div>
+      <div class="wstep__zdjecie" data-pokaz style="--opoznienie: 0.15s">
+        <Zdjecie
+          plik="dla-rodzicow-portret.jpg"
+          alt="Izabela Knul w białej marynarce i dżinsach, uśmiechnięta, siedzi bokiem na drewnianym krześle w nasłonecznionym lesie sosnowym; na oparciu krzesła wisi kolorowa apaszka"
+          sizes="(min-width: 52rem) 30rem, calc(100vw - 2.5rem)"
+          priorytet
+        />
+      </div>
+      <!-- Na starej stronie ten akapit był widoczny tylko na telefonie -->
+      <p class="wstep__dopowiedzenie tylko-telefon" data-pokaz>Jako dyrektorka szkoły prowadziłam regularne warsztaty rozwojowe dla rodziców, które z&nbsp;czasem naturalnie przekształciły się w&nbsp;stałą grupę rozwojową kobiet. Spotykałyśmy się w&nbsp;bezpiecznej, uważnej przestrzeni, pracując w&nbsp;duchu Porozumienia bez Przemocy (NVC). Rozmawiałyśmy o&nbsp;emocjach, potrzebach, wartościach, stawianiu granic, dbaniu o&nbsp;siebie, zmęczeniu, relacjach, porażkach i&nbsp;powrotach do siebie.</p>
+    </div>
+  </section>
+
+  <!-- Tytuł strony i karta (dawniej wSection_62) -->
+  <section class="sekcja sekcja--piasek rodzice" aria-labelledby="dla-rodzicow-tytul">
+    <div class="kontener">
+      <header class="wycentrowane" data-pokaz>
+        <Kreska />
+        <h1 id="dla-rodzicow-tytul" class="rodzice__tytul">DLA RODZICÓW</h1>
+      </header>
+
+      <article class="karta karta--biala rodzice__karta" aria-labelledby="karta-rodzice-tytul" data-pokaz style="--opoznienie: 0.1s">
+        <h2 id="karta-rodzice-tytul" class="rodzice__karta-tytul">JAK BYĆ OBECNYM I&nbsp;WYSTARCZAJĄCO DOBRYM RODZICIEM?</h2>
+        <p class="rodzice__karta-opis">CO KAŻDY RODZIC POWINIEN WIEDZIEĆ? PRZEWODNIK PO SZKOLE W&nbsp;PIGUŁCE</p>
+        <div class="przyciski">
+          <a class="przycisk przycisk--obrys" href="#jedna-klasa">Dowiedz się więcej<span class="sr-only"> o szkoleniu „Jedna klasa – wiele potrzeb”</span><Ikona nazwa="strzalka" class="w-dol" /></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Jedna klasa – wiele potrzeb (dawniej wSection_64; tu prowadzi przycisk z karty) -->
+  <section class="sekcja jedna-klasa" id="jedna-klasa" aria-labelledby="jedna-klasa-tytul">
+    <div class="kontener">
+      <div class="dwie-kolumny dwie-kolumny--odwrotnie jedna-klasa__uklad">
+        <div class="jedna-klasa__tresc" data-pokaz>
+          <hgroup class="jedna-klasa__naglowek">
+            <h2 id="jedna-klasa-tytul" class="jedna-klasa__tytul">JEDNA KLASA&nbsp;– WIELE POTRZEB.</h2>
+            <p class="jedna-klasa__podtytul">JAK PRACOWAĆ Z&nbsp;KLASĄ RÓŻNORODNĄ I&nbsp;NIE WYPALIĆ SIĘ JAKO NAUCZYCIEL?</p>
+          </hgroup>
+          <h3 class="jedna-klasa__korzysci">Co zyskasz dzięki udziałowi w&nbsp;szkoleniu?</h3>
+          <ul class="kropki">
+            <li>Zidentyfikujesz i&nbsp;uporządkujesz potrzeby swojej klasy, aby skuteczniej planować pracę dydaktyczną.</li>
+            <li>Dobierzesz strategie pracy adekwatne do różnorodnych potrzeb uczniów.</li>
+            <li>Zaprojektujesz rutyny i&nbsp;zasady, które zwiększą przewidywalność, bezpieczeństwo i&nbsp;efektywność lekcji.</li>
+            <li>Nauczysz się rozpoznawać własne sygnały przeciążenia i&nbsp;dobierać konkretne działania wspierające Twój dobrostan.</li>
+            <li>Zaplanujesz współpracę z&nbsp;innymi nauczycielami jako realny system wsparcia i&nbsp;przeciwdziałania wypaleniu.</li>
+          </ul>
+          <p class="jedna-klasa__czas"><strong>Czas trwania:</strong>&nbsp;3 godziny zegarowe</p>
+        </div>
+        <div class="jedna-klasa__zdjecie" data-pokaz style="--opoznienie: 0.15s">
+          <Zdjecie
+            plik="dla-rodzicow-paw.jpg"
+            alt="Paw o niebiesko-turkusowym upierzeniu stoi na gałęzi sosny w zacienionym lesie"
+            sizes="(min-width: 75rem) 35rem, (min-width: 52rem) 48vw, calc(100vw - 2.5rem)"
+            kadr="50% 50%"
+          />
+        </div>
+      </div>
+
+      <!-- Tekst w tym miejscu jest przeniesiony bez zmian ze starej strony (do decyzji właścicielki) -->
+      <p class="jedna-klasa__dalej" data-pokaz>KLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPISKLASA PEŁNA POTRZEB DALSZY OPIS</p>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  /* ---------- Wstęp ---------- */
+
+  .wstep__tekst p {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.1vw + 0.95rem, 1.75rem);
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+
+  .wstep__zdjecie :global(.zdjecie) {
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  .wstep__dopowiedzenie {
+    margin: 0;
+  }
+
+  @media (max-width: 51.99rem) {
+    .wstep__uklad {
+      gap: 2rem;
+    }
+
+    .wstep__zdjecie :global(.zdjecie) {
+      max-width: 24rem;
+    }
+  }
+
+  @media (min-width: 52rem) {
+    .wstep__uklad {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  /* ---------- Tytuł strony i karta ---------- */
+
+  .rodzice__tytul {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    color: var(--braz);
+  }
+
+  .rodzice__karta {
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+
+  .rodzice__karta-tytul {
+    margin-bottom: 1rem;
+    font-size: clamp(1.4rem, 1vw + 1.05rem, 1.85rem);
+    line-height: 1.2;
+  }
+
+  .rodzice__karta-opis {
+    font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.2rem);
+    line-height: 1.5;
+  }
+
+  .rodzice__karta :global(.w-dol) {
+    transform: rotate(90deg);
+  }
+
+  /* ---------- Jedna klasa – wiele potrzeb ---------- */
+
+  .jedna-klasa__uklad {
+    align-items: center;
+  }
+
+  @media (min-width: 52rem) {
+    .jedna-klasa__uklad {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .jedna-klasa__naglowek {
+    margin-bottom: 1.75rem;
+  }
+
+  .jedna-klasa__tytul {
+    margin-bottom: 0.75rem;
+    color: var(--braz);
+  }
+
+  .jedna-klasa__podtytul {
+    margin: 0;
+    font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.2rem);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .jedna-klasa__korzysci {
+    margin-bottom: 0.9rem;
+    font-size: clamp(1.2rem, 0.6vw + 1rem, 1.45rem);
+  }
+
+  /* Zwykła lista punktowana (na starej stronie – kropki, nie ikony) */
+  .kropki {
+    margin-bottom: 1.5rem;
+    padding-left: 1.35rem;
+  }
+
+  .kropki li {
+    padding-left: 0.35rem;
+    margin-bottom: 0.55em;
+  }
+
+  .kropki li::marker {
+    color: var(--braz);
+  }
+
+  .jedna-klasa__czas {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--zloto-jasne);
+  }
+
+  /* Proporcje zdjęcia (zmienna dziedziczona przez komponent Zdjecie): na telefonie cały kadr, na komputerze kwadrat jak dawniej */
+  .jedna-klasa__zdjecie {
+    --proporcje: 3 / 2;
+  }
+
+  @media (min-width: 52rem) {
+    .jedna-klasa__zdjecie {
+      --proporcje: 1 / 1;
+    }
+  }
+
+  .jedna-klasa__dalej {
+    max-width: 62rem;
+    margin: clamp(3rem, 7vw, 5rem) auto 0;
+    font-size: clamp(1.2rem, 1vw + 0.95rem, 1.75rem);
+    line-height: 1.4;
+  }
+</style>

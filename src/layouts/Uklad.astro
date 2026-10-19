@@ -27,8 +27,8 @@ interface Props {
 
 const { tytul, opis, zdjecieOg = 'strona-glowna-brzoza.jpg', pasekKontaktu = {}, daneStrukturalne = [], bezIndeksu = false } = Astro.props;
 
-const pelnyTytul = Astro.url.pathname === '/' ? tytul : `${tytul} | Izabela Knul`;
-const sciezka = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const sciezka = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, '') || '/';
+const pelnyTytul = sciezka === '/' ? tytul : `${tytul} | Izabela Knul`;
 const kanoniczny = new URL(sciezka, strona.adresStrony).href;
 
 const obrazOg = zdjecie(zdjecieOg);

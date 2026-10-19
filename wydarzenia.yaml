@@ -24,7 +24,7 @@
 #   link_zapisu      – adres formularza zapisu (opcjonalne; gdy pusty, przycisk prowadzi do formularza na stronie)
 # ================================================================
 
-- tytul: "Jedna klasa - wiele potrzeb"
+- tytul: "Jedna klasa – wiele potrzeb"
   daty: [2026-06-03, 2026-06-10]
   zdjecie: szkolenie-jedna-klasa.jpg
   link_wiecej: /szkolenia#jedna-klasa

@@ -1,0 +1,200 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+import Kreska from '../components/Kreska.astro';
+import { strona } from '../data/strona';
+
+const opis =
+  'Mentoring dla dyrektorów i nauczycieli: towarzyszenie w drodze, autentyczne przywództwo oparte na wartościach, komunikacja w duchu NVC, granice i dobrostan.';
+
+const daneStrukturalne = [
+  {
+    '@type': 'Service',
+    '@id': `${strona.adresStrony}/mentoring#mentoring`,
+    name: 'Mentoring dla dyrektorów i nauczycieli',
+    serviceType: 'Mentoring',
+    description: opis,
+    url: `${strona.adresStrony}/mentoring`,
+    inLanguage: 'pl-PL',
+    audience: { '@type': 'EducationalAudience', educationalRole: 'dyrektorzy i nauczyciele' },
+    provider: { '@id': `${strona.adresStrony}/#izabela-knul` },
+  },
+];
+---
+
+<Uklad tytul="Mentoring dla dyrektorów i nauczycieli" opis={opis} daneStrukturalne={daneStrukturalne}>
+  <!-- Motto, tytuł i wstęp (na starej stronie jedna sekcja z tekstem) -->
+  <section class="sekcja otwarcie" aria-labelledby="mentoring-tytul">
+    <div class="kontener kontener--waski">
+      <figure class="motto" data-pokaz>
+        <blockquote class="cytat motto__cytat">
+          <p>Tak rzadko, jak to jest możliwe, sprawiaj, by ludzie robili coś dla Ciebie tylko dlatego, że masz władzę. Zapłacisz za to najdroższą walutą, jaką jest ich dobra wola.</p>
+        </blockquote>
+        <figcaption class="motto__autor">Miki Kashtan</figcaption>
+      </figure>
+
+      <header class="otwarcie__naglowek wycentrowane" data-pokaz>
+        <h1 id="mentoring-tytul">MENTORING</h1>
+        <Kreska />
+      </header>
+
+      <div class="wstep" data-pokaz>
+        <h2 class="naglowek-sekcji wycentrowane">DLA DYREKTORÓW I&nbsp;NAUCZYCIELI</h2>
+        <p class="prowadzenie">To propozycja dla osób, które chcą zatrzymać się na chwilę w&nbsp;codziennym biegu, spojrzeć z&nbsp;większym spokojem na swoją rolę zawodową i&nbsp;odnaleźć własny, autentyczny sposób działania w&nbsp;edukacji.</p>
+        <p>Nie oferuję gotowych recept ani „szybkich sposobów na szkołę”.</p>
+        <p>Mentoring rozumiem jako towarzyszenie w&nbsp;drodze – w&nbsp;odkrywaniu własnych zasobów, wzmacnianiu kompetencji przywódczych i&nbsp;wychowawczych oraz w&nbsp;mierzeniu się z&nbsp;wyzwaniami, które niesie współczesna edukacja.</p>
+        <p>Wierzę, że dobre przywództwo zaczyna się od świadomości siebie – swoich wartości, granic, emocji i&nbsp;sposobu budowania relacji z&nbsp;innymi. Dlatego podczas spotkań pracujemy nie tylko nad konkretnymi sytuacjami zawodowymi, ale także nad tym, jak pozostać w&nbsp;swojej roli człowiekiem uważnym na siebie i&nbsp;innych.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dla kogo jest mentoring -->
+  <section class="sekcja sekcja--piasek dla-kogo" aria-labelledby="dla-kogo-naglowek">
+    <div class="kontener kontener--waski">
+      <h2 id="dla-kogo-naglowek" class="naglowek-sekcji wycentrowane" data-pokaz>DLA KOGO JEST MENTORING?</h2>
+      <div class="karta karta--biala dla-kogo__karta" data-pokaz style="--opoznienie: 0.1s">
+        <p class="dla-kogo__wstep" id="dla-kogo-wstep"><strong>Dla osób, które:</strong></p>
+        <ul class="lista" aria-labelledby="dla-kogo-wstep">
+          <li>chcą rozwijać się świadomie i&nbsp;w&nbsp;zgodzie ze sobą,</li>
+          <li>czują przeciążenie lub samotność w&nbsp;swojej roli,</li>
+          <li>stoją przed zmianą lub ważną decyzją zawodową,</li>
+          <li>chcą budować szkołę opartą na relacjach, dialogu i&nbsp;odpowiedzialności,</li>
+          <li>potrzebują wsparcia w&nbsp;odnalezieniu własnego stylu przywództwa i&nbsp;pracy z&nbsp;ludźmi.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nad czym pracujemy + hasło zamykające -->
+  <section class="sekcja proces" aria-labelledby="proces-naglowek">
+    <div class="kontener">
+      <h2 id="proces-naglowek" class="naglowek-sekcji wycentrowane" data-pokaz>W PROCESIE MENTORINGOWYM PRACUJEMY&nbsp;NAD:</h2>
+      <ul class="lista proces__lista" data-pokaz style="--opoznienie: 0.1s">
+        <li>budowaniem autentycznego przywództwa opartego na wartościach,</li>
+        <li>wzmacnianiem poczucia sprawczości i&nbsp;pewności w&nbsp;roli zawodowej,</li>
+        <li>komunikacją i&nbsp;rozwiązywaniem konfliktów w&nbsp;duchu NVC,</li>
+        <li>budowaniem relacji opartych na szacunku i&nbsp;współpracy,</li>
+        <li>stawianiem granic i&nbsp;dbaniem o&nbsp;własny dobrostan,</li>
+        <li>radzeniem sobie ze stresem, przeciążeniem i&nbsp;odpowiedzialnością,</li>
+        <li>wspieraniem nauczycieli w&nbsp;sytuacjach trudnych,</li>
+        <li>wprowadzaniem zmian w&nbsp;szkole i&nbsp;pracą z&nbsp;oporem,</li>
+        <li>rozwijaniem współpracy i&nbsp;zaangażowania w&nbsp;zespołach nauczycielskich,</li>
+        <li>odnajdywaniem większego sensu i&nbsp;lekkości w&nbsp;codziennej pracy.</li>
+      </ul>
+
+      <div class="zakonczenie wycentrowane" data-pokaz>
+        <Kreska />
+        <p class="haslo">WIERZĘ, ŻE SZKOŁA MOŻE BYĆ MIEJSCEM, W&nbsp;KTÓRYM ROZWIJAJĄ SIĘ NIE TYLKO UCZNIOWIE, ALE RÓWNIEŻ DOROŚLI.</p>
+      </div>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  /* ---------- Motto (cytat Miki Kashtan) ---------- */
+  .motto {
+    position: relative;
+    margin: 0 0 clamp(3rem, 8vw, 5.5rem);
+    padding-top: 2.75rem;
+  }
+
+  /* Ozdobny cudzysłów w złocie (sama grafika, bez tekstu) */
+  .motto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 2rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath fill='%23c7a879' d='M0 32V19.2C0 8.6 5.3 2.2 15.9 0l1.6 4.1C11.6 5.8 8.6 9.4 8.4 14.9H16V32H0Zm22.4 0V19.2C22.4 8.6 27.7 2.2 38.3 0L40 4.1c-5.9 1.7-8.9 5.3-9.1 10.8h7.6V32H22.4Z'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+
+  .motto__cytat {
+    margin: 0;
+    font-size: clamp(1.3rem, 1.1vw + 1rem, 1.75rem);
+    line-height: 1.45;
+  }
+
+  .motto__autor {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    font-family: var(--font-cytat);
+    font-size: clamp(1.1rem, 0.6vw + 1rem, 1.35rem);
+    text-align: right;
+  }
+
+  /* Krótka złota linia przed podpisem – tylko ozdoba */
+  .motto__autor::before {
+    content: '';
+    width: 2rem;
+    height: 2px;
+    background: var(--zloto);
+  }
+
+  /* ---------- Tytuł strony ---------- */
+  .otwarcie__naglowek h1 {
+    font-size: clamp(2.75rem, 6vw + 1rem, 5.25rem);
+    margin-bottom: 0.2em;
+  }
+
+  .otwarcie__naglowek :global(.kreska) {
+    margin-bottom: 0;
+  }
+
+  /* ---------- Nagłówki sekcji (dawniej złote, teraz brąz z tej samej palety) ---------- */
+  .naglowek-sekcji {
+    color: var(--braz);
+    font-size: clamp(1.6rem, 2.2vw + 1rem, 2.6rem);
+  }
+
+  /* ---------- Wstęp ---------- */
+  .wstep {
+    margin-top: clamp(3rem, 7vw, 4.5rem);
+  }
+
+  .wstep .naglowek-sekcji {
+    margin-bottom: 1.25em;
+  }
+
+  /* ---------- Dla kogo ---------- */
+  .dla-kogo__karta {
+    margin-top: 0.5rem;
+  }
+
+  .dla-kogo__wstep {
+    margin-bottom: 1rem;
+    font-size: clamp(1.2rem, 0.8vw + 1rem, 1.5rem);
+    line-height: 1.35;
+  }
+
+  .dla-kogo .lista li:last-child,
+  .proces__lista li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---------- Nad czym pracujemy ---------- */
+  .proces__lista {
+    max-width: var(--szerokosc-tekstu);
+    margin: 0.5rem auto 0;
+  }
+
+  .proces__lista li {
+    break-inside: avoid;
+  }
+
+  @media (min-width: 60rem) {
+    .proces__lista {
+      max-width: 62rem;
+      columns: 2;
+      column-gap: 3.5rem;
+    }
+  }
+
+  .zakonczenie {
+    max-width: 56rem;
+    margin: clamp(3.5rem, 8vw, 5.5rem) auto 0;
+  }
+</style>

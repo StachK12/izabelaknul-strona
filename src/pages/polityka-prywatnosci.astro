@@ -1,0 +1,190 @@
+---
+// Polityka prywatności. Sama treść jest w pliku src/tresci/polityka-prywatnosci.md
+// (łatwa do zmiany bez dotykania kodu). Tutaj jest tylko tytuł, spis treści i wygląd.
+import Uklad from '../layouts/Uklad.astro';
+import Kreska from '../components/Kreska.astro';
+import { Content, getHeadings } from '../tresci/polityka-prywatnosci.md';
+
+// Spis treści z nagłówków sekcji („## …” w pliku z treścią)
+const sekcje = getHeadings().filter((naglowek) => naglowek.depth === 2);
+---
+
+<Uklad
+  tytul="Polityka prywatności"
+  opis="Zasady przetwarzania danych osobowych i plików cookies na stronie izabelaknul.pl. Administrator: Izabela Knul. Cele, odbiorcy danych i Twoje uprawnienia."
+  pasekKontaktu={false}
+>
+  <header class="sekcja sekcja--ciasna sekcja--piasek polityka-naglowek">
+    <div class="kontener kontener--waski wycentrowane" data-pokaz>
+      <h1>Polityka prywatności</h1>
+      <Kreska />
+    </div>
+  </header>
+
+  <section class="sekcja polityka" aria-label="Treść polityki prywatności">
+    {
+      sekcje.length > 0 && (
+        <nav class="kontener kontener--waski" aria-labelledby="spis-tresci">
+          <details class="spis">
+            <summary id="spis-tresci">Spis treści</summary>
+            <ul class="spis__lista" role="list">
+              {sekcje.map((naglowek) => (
+                <li>
+                  <a href={`#${naglowek.slug}`}>{naglowek.text}</a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </nav>
+      )
+    }
+
+    <div class="kontener kontener--waski tresc-prawna">
+      <Content />
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  .polityka-naglowek h1 {
+    margin-bottom: 0.35em;
+  }
+
+  .polityka-naglowek :global(.kreska) {
+    margin-bottom: 0;
+  }
+
+  .polityka {
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  /* ---------- Spis treści (zwijany) ---------- */
+
+  .spis {
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+    border-radius: var(--zaokraglenie);
+    background: var(--piasek);
+  }
+
+  .spis summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--zaokraglenie);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .spis summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* strzałka w dół / w górę */
+  .spis summary::after {
+    content: '';
+    flex: none;
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-right: 0.25rem;
+    border-right: 2px solid var(--braz);
+    border-bottom: 2px solid var(--braz);
+    transform: translateY(-25%) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .spis[open] summary::after {
+    transform: translateY(25%) rotate(-135deg);
+  }
+
+  .spis__lista {
+    margin: 0;
+    padding: 0 1.25rem 1.25rem;
+    list-style: none;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .spis__lista li + li {
+    border-top: 1px solid var(--zloto-jasne);
+  }
+
+  .spis__lista a {
+    display: block;
+    padding: 0.6rem 0;
+    color: var(--ciemny);
+    text-decoration: none;
+  }
+
+  .spis__lista a:hover {
+    color: var(--braz);
+    text-decoration: underline;
+  }
+
+  /* ---------- Treść polityki (wynik z pliku Markdown) ---------- */
+
+  .tresc-prawna {
+    font-size: clamp(1rem, 0.2vw + 0.97rem, 1.0625rem);
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
+
+  .tresc-prawna :global(p),
+  .tresc-prawna :global(ul) {
+    margin: 0 0 1.1em;
+  }
+
+  .tresc-prawna :global(h2) {
+    margin: 2.75rem 0 1rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--zloto-jasne);
+    font-size: clamp(1.3rem, 0.9vw + 1rem, 1.6rem);
+    line-height: 1.25;
+  }
+
+  .tresc-prawna :global(h3) {
+    margin: 2.25rem 0 0.75rem;
+    font-size: clamp(1.15rem, 0.5vw + 1rem, 1.3rem);
+    line-height: 1.3;
+    color: var(--braz);
+  }
+
+  .tresc-prawna :global(h4) {
+    margin: 1.9rem 0 0.6rem;
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    color: var(--braz);
+  }
+
+  .tresc-prawna :global(h4)::before {
+    content: '';
+    display: inline-block;
+    width: 1.1rem;
+    height: 2px;
+    margin-right: 0.55rem;
+    vertical-align: middle;
+    background: var(--zloto);
+  }
+
+  .tresc-prawna :global(ul) {
+    padding-left: 1.35rem;
+  }
+
+  .tresc-prawna :global(li) {
+    margin-bottom: 0.3em;
+    padding-left: 0.3rem;
+  }
+
+  .tresc-prawna :global(li::marker) {
+    color: var(--zloto);
+    font-size: 1.1em;
+  }
+
+  /* Długie adresy (np. https://policies.google.com/…) nie mogą rozpychać strony na telefonie */
+  .tresc-prawna :global(a) {
+    overflow-wrap: anywhere;
+  }
+</style>

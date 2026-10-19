@@ -1,0 +1,539 @@
+---
+import { Image } from 'astro:assets';
+import Uklad from '../layouts/Uklad.astro';
+import Zdjecie from '../components/Zdjecie.astro';
+import Marka from '../components/Marka.astro';
+import Kreska from '../components/Kreska.astro';
+import Ikona from '../components/Ikona.astro';
+import Formularz from '../components/Formularz.astro';
+import logoCzasdolasu from '../assets/marka/logo-czasdolasu.png';
+import podpisCzasdolasu from '../assets/marka/czasdolasu-podpis.png';
+
+// Plan dnia – teksty dosłownie ze starej strony.
+const planDnia = [
+  {
+    godziny: '09:00–09:20',
+    tytul: 'Powitanie i integracja przy kawie',
+    opis: 'Spokojny początek dnia. Czas na przyjazne wejście w przestrzeń, pierwsze rozmowy i złapanie kontaktu z miejscem oraz grupą.',
+  },
+  {
+    godziny: '09:20–10:00',
+    tytul: 'Spacer wprowadzający do tematu szkolenia',
+    opis: 'Początek procesu szkoleniowego. Doświadczeniowe wejście w temat dnia poprzez ruch, obserwację i uważny kontakt z naturą.',
+  },
+  {
+    godziny: '10:00–13:20',
+    tytul: 'Praca merytoryczna i warsztatowa',
+    opis: 'Konkretna, praktyczna praca nad tematem szkolenia – narzędzia, rozwiązania i działania możliwe do od razu wykorzystania dla siebie i w pracy z uczniami.',
+  },
+  {
+    godziny: '13:20–14:00',
+    tytul: 'Spacer integrujący doświadczenie – „z czym wychodzę”',
+    opis: 'Czas na porządkowanie wniosków, refleksję i wyłonienie tego, co najważniejsze i najbardziej osobiste do zabrania dalej.',
+  },
+  {
+    godziny: '14:00–15:00',
+    tytul: 'Godzina dla Ciebie (czas osadzania doświadczenia)',
+    opis: 'Nieobowiązkowa, indywidualna przestrzeń na domknięcie procesu, zapis wniosków, spokojne bycie ze sobą lub rozmowę. Korzystasz z niej w takim zakresie, jakiego potrzebujesz.',
+  },
+];
+
+// Karty oferty – kolejność jak na komputerze na starej stronie.
+const oferta = [
+  {
+    tytul: 'JEDNA KLASA – WIELE POTRZEB.',
+    opis: 'Praca z klasą różnorodną i profilaktyka wypalenia zawodowego',
+    adres: '/szkolenia#jedna-klasa',
+    kontekst: 'o szkoleniu Jedna klasa – wiele potrzeb',
+  },
+  {
+    tytul: 'OCENIANIE KSZTAŁTUJĄCE.',
+    opis: 'Budowanie przestrzeni na osiąganie przez uczniów celów edukacyjnych.',
+    adres: '/szkolenia#ocenianie-ksztaltujace',
+    kontekst: 'o szkoleniu Ocenianie kształtujące',
+  },
+  {
+    tytul: 'NOWA PODSTAWA PROGRAMOWA W PRAKTYCE PRZEDSZKOLNEJ I WCZESNOSZKOLNEJ.',
+    opis: 'Rozwijanie kompetencji fundamentalnych, przekrojowych i sprawczości dzieci',
+    adres: '/szkolenia#nowa-podstawa',
+    kontekst: 'o szkoleniu Nowa podstawa programowa w praktyce przedszkolnej i wczesnoszkolnej',
+  },
+];
+
+// Spójniki i przyimki jednoliterowe nie zostają na końcu wiersza.
+const sierotki = (tekst: string) => tekst.replace(/(?<=^|[\s„(])([aiouwzAIOUWZ])\s/g, '$1\u00a0');
+
+const szkolenia = [
+  'Ocenianie kształtujące',
+  'Jedna klasa – wiele potrzeb',
+  'Nowa podstawa programowa w praktyce przedszkolnej i wczesnoszkolnej',
+  'Od wyzwania do zmiany',
+];
+---
+
+<Uklad
+  tytul="czasdolasu – szkolenia w otoczeniu natury"
+  opis="czasdolasu – outdoorowa przestrzeń rozwojowo-szkoleniowa dla nauczycieli i dyrektorów. Praca w naturze, w małych, kameralnych grupach 6–7 osób."
+  zdjecieOg="czasdolasu-polana.jpg"
+  pasekKontaktu={false}
+>
+  <!-- Wstęp i tytuł strony (logo czasdolasu) -->
+  <section class="sekcja wstep">
+    <div class="kontener">
+      <div class="dwie-kolumny wstep__uklad">
+        <div class="wstep__tekst" data-pokaz>
+          <p class="wstep__prowadzenie">Stworzyłam <strong><Marka /></strong>, bo wiem, jak bardzo nauczyciele potrzebują dziś przestrzeni, która naprawdę wzmacnia, a&nbsp;nie tylko „dokłada treści”.</p>
+        </div>
+
+        <div data-pokaz style="--opoznienie: 0.15s">
+          <Zdjecie
+            plik="czasdolasu-portret.jpg"
+            alt="Izabela Knul w lesie – uśmiechnięta, w okularach i białej koszuli, opiera dłonie na drewnianym oparciu krzesła; w tle nasłoneczniony las sosnowy"
+            sizes="(min-width: 52rem) 32rem, calc(100vw - 2.5rem)"
+            priorytet
+            class="wstep__zdjecie"
+          />
+        </div>
+
+        <div class="tylko-telefon wstep__telefon">
+          <p><strong><Marka /></strong> to outdoorowa przestrzeń rozwojowo‑szkoleniowa dla nauczycieli i&nbsp;dyrektorów. Tu pracujemy nad energią i&nbsp;sensem zawodu, wypaleniem, a&nbsp;jednocześnie solidnie dotykamy kluczowych trendów współczesnej edukacji.</p>
+          <p>Zamiast zamkniętej sali i&nbsp;twardych krzeseł proponuję pracę w&nbsp;naturze – w&nbsp;ruchu, oddechu, ciszy i&nbsp;uważnej obecności.</p>
+        </div>
+      </div>
+
+      <h1 class="tytul-marki" data-pokaz>
+        <Image
+          src={logoCzasdolasu}
+          alt="czasdolasu"
+          widths={[480, 768, 959]}
+          sizes="(min-width: 48rem) 40rem, calc(100vw - 2.5rem)"
+          loading="eager"
+          class="tytul-marki__logo"
+        />
+        <span class="sr-only"> – </span>
+        <Image
+          src={podpisCzasdolasu}
+          alt="szkolenia w otoczeniu natury"
+          widths={[480, 768, 959]}
+          sizes="(min-width: 48rem) 35rem, calc(88vw - 2.2rem)"
+          loading="eager"
+          class="tytul-marki__podpis"
+        />
+      </h1>
+    </div>
+  </section>
+
+  <!-- Kameralna grupa -->
+  <section class="sekcja sekcja--piasek grupa" aria-labelledby="grupa-naglowek">
+    <div class="kontener">
+      <header class="wycentrowane" data-pokaz>
+        <Kreska />
+        <h2 id="grupa-naglowek" class="haslo grupa__naglowek">KAMERALNA GRUPA!</h2>
+        <p class="haslo grupa__podtytul">Trzy godziny pracy dają efekt, na który w&nbsp;dużym zespole potrzeba całego dnia.</p>
+      </header>
+
+      <ul class="lista grupa__lista">
+        <li data-pokaz>PRACUJEMY W MAŁYCH, KAMERALNYCH GRUPACH – 6–7 OSÓB – DZIĘKI CZEMU KAŻDA OSOBA JEST ZAUWAŻONA I&nbsp;NAPRAWDĘ WYSŁUCHANA.</li>
+        <li data-pokaz style="--opoznienie: 0.1s">JEST TU CZAS I&nbsp;PRZESTRZEŃ NA GŁĘBOKĄ, INDYWIDUALNĄ PRACĘ, DOSTOSOWANĄ DO TWOICH REALNYCH POTRZEB.</li>
+        <li data-pokaz style="--opoznienie: 0.2s">WYCHODZISZ Z&nbsp;GOTOWYM MATERIAŁEM, KONKRETNYM PLANEM I&nbsp;ROZWIĄZANIAMI, KTÓRE MOŻESZ OD RAZU WYKORZYSTAĆ DLA SIEBIE I&nbsp;SWOICH UCZNIÓW.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Plan dnia -->
+  <section class="sekcja plan" aria-labelledby="plan-naglowek">
+    <div class="kontener kontener--waski">
+      <h2 id="plan-naglowek" class="wycentrowane plan__naglowek" data-pokaz>Jak wygląda dzień w&nbsp;<Marka />?</h2>
+
+      <ol class="plan__lista">
+        {
+          planDnia.map((etap, i) => (
+            <li class="plan__etap" data-pokaz style={`--opoznienie: ${i * 0.05}s`}>
+              <h3 class="plan__tytul"><span class="plan__godziny">{etap.godziny}</span> <span class="plan__kreska" aria-hidden="true">|</span> {sierotki(etap.tytul)}</h3>
+              <p class="plan__opis">{sierotki(etap.opis)}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Spacer niezależnie od pogody -->
+  <section class="sekcja sekcja--piasek spacer">
+    <div class="kontener">
+      <div class="wycentrowane spacer__hasla" data-pokaz>
+        <Kreska />
+        <p class="haslo spacer__haslo">KAŻDE SZKOLENIE W&nbsp;<Marka czasdo="CZASDO" lasu="LASU" /> ZACZYNAMY I&nbsp;KOŃCZYMY SPACEREM – NIEZALEŻNIE OD POGODY.</p>
+        <p class="haslo spacer__haslo">KONTAKT Z&nbsp;NATURĄ JEST FUNDAMENTEM DOŚWIADCZENIA EDUKACYJNEGO, KTÓREGO JESTEŚ CZĘŚCIĄ I&nbsp;WAŻNYM ELEMENTEM CAŁEGO PROCESU.</p>
+      </div>
+
+      <div class="spacer__karty">
+        <p class="karta karta--biala" data-pokaz><strong><em>Deszcz?</em></strong> – merytoryczna i&nbsp;warsztatowa część dnia przenosi się do pomieszczenia.</p>
+        <p class="karta karta--biala" data-pokaz style="--opoznienie: 0.1s"><strong>Ja –</strong> dbam o&nbsp;jakość i&nbsp;poziom treści, proces oraz bezpieczne ramy pracy.</p>
+        <p class="karta karta--biala" data-pokaz style="--opoznienie: 0.2s"><strong>Ty –</strong> zadbaj o&nbsp;strój, obuwie i&nbsp;akcesoria dopasowane do warunków pogodowych, tak aby spacer w&nbsp;lesie był dla Ciebie swobodny i&nbsp;komfortowy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Oferta szkoleń outdoorowych -->
+  <section class="sekcja oferta" aria-labelledby="oferta-naglowek">
+    <div class="kontener">
+      <h2 id="oferta-naglowek" class="wycentrowane oferta__naglowek" data-pokaz>OFERTA SZKOLEŃ OUTDOOROWYCH</h2>
+
+      <div class="siatka oferta__karty">
+        {
+          oferta.map((karta, i) => (
+            <article class="karta" data-pokaz style={`--opoznienie: ${i * 0.1}s`}>
+              <h3>{karta.tytul}</h3>
+              <p>{sierotki(karta.opis)}</p>
+              <div class="przyciski">
+                <a class="przycisk przycisk--obrys" href={karta.adres}>Dowiedz się więcej<span class="sr-only"> {karta.kontekst}</span><Ikona nazwa="strzalka" /></a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Zapisy -->
+  <section class="sekcja sekcja--piasek zapisy" id="zapisy" aria-labelledby="zapisy-naglowek">
+    <div class="kontener zapisy__uklad">
+      <div class="karta karta--biala zapisy__karta" data-pokaz>
+        <h2 id="zapisy-naglowek" class="wycentrowane">Zapisz się na szkolenie</h2>
+        <Formularz
+          nazwa="zapis-czasdolasu"
+          temat="Zapis na szkolenie – czasdolasu"
+          komunikatSukcesu="Dziękuję, zgłoszenie zostało wysłane."
+          listy={[{ etykieta: 'Wybierz interesujące Cię szkolenie', nazwa: 'szkolenie', opcje: szkolenia, wymagane: false }]}
+          etykietaWiadomosci="Jakie szkolenie Cię interesuje?"
+          wiadomoscWymagana={true}
+        />
+      </div>
+
+      <div class="zapisy__zdjecie" data-pokaz style="--opoznienie: 0.15s">
+        <Zdjecie
+          plik="czasdolasu-polana.jpg"
+          alt="Polana na skraju lasu przygotowana do zajęć: skoszona zielona łąka, w tle las brzozowo-sosnowy i błękitne niebo z chmurami, z boku drewniane leżaki wokół stolika i flipchart"
+          sizes="(min-width: 64rem) 1200px, calc(125vw - 3rem)"
+          proporcje="5 / 4"
+          kadr="80% 72%"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Zakończenie -->
+  <section class="sekcja zakonczenie">
+    <div class="kontener kontener--waski wycentrowane" data-pokaz>
+      <Image
+        src={logoCzasdolasu}
+        alt="czasdolasu"
+        widths={[480, 768, 959]}
+        sizes="(min-width: 48rem) 34rem, calc(100vw - 2.5rem)"
+        class="zakonczenie__logo"
+      />
+      <p><em>...to miejsce, z&nbsp;którego dobra energia płynie dalej do uczniów.</em></p>
+      <p><em>Bo środowisko, w&nbsp;którym uczymy i&nbsp;uczymy się, ma realną moc kształtowania relacji, uważności i&nbsp;sprawczości.</em></p>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  /* ---------- Wstęp ---------- */
+  .wstep {
+    padding-bottom: calc(var(--odstep-sekcji) * 0.75);
+  }
+
+  .wstep__uklad {
+    align-items: center;
+  }
+
+  .wstep__prowadzenie {
+    margin: 0;
+    font-size: clamp(1.3rem, 1.1vw + 0.95rem, 1.85rem);
+    line-height: 1.45;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  .wstep :global(.wstep__zdjecie) {
+    /* Plik ma 618 px szerokości – nie powiększamy go ponad tę wielkość */
+    max-width: 38.625rem;
+    margin-inline: auto;
+  }
+
+  .wstep__telefon {
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 52rem) {
+    .wstep__prowadzenie {
+      text-align: left;
+    }
+
+    .wstep :global(.wstep__zdjecie) {
+      margin-inline: auto 0;
+    }
+  }
+
+  /* Tytuł strony: logo czasdolasu + „szkolenia w otoczeniu natury” */
+  .tytul-marki {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.4rem, 1.2vw, 0.9rem);
+    width: 100%;
+    max-width: 40rem;
+    margin: clamp(3.5rem, 9vw, 6.5rem) auto 0;
+  }
+
+  .tytul-marki :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .tytul-marki :global(.tytul-marki__podpis) {
+    width: 88%;
+  }
+
+  /* ---------- Kameralna grupa ---------- */
+  .grupa__naglowek {
+    font-size: clamp(1.9rem, 2.6vw + 1rem, 2.85rem);
+    margin-bottom: 0.45em;
+  }
+
+  .grupa__podtytul {
+    max-width: 44rem;
+    margin-inline: auto;
+    font-size: clamp(1.2rem, 1.3vw + 0.8rem, 1.9rem);
+  }
+
+  .grupa__lista {
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    margin: clamp(2.5rem, 5vw, 3.75rem) 0 0;
+  }
+
+  .grupa__lista li {
+    margin: 0;
+    padding: 4.25rem clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2rem);
+    border-radius: var(--zaokraglenie);
+    background: var(--bialy);
+    box-shadow: var(--cien);
+    font-size: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+    font-weight: 600;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+  }
+
+  .grupa__lista li::before {
+    top: clamp(1.5rem, 3vw, 2rem);
+    left: clamp(1.5rem, 3vw, 2rem);
+    width: 1.9rem;
+    height: 1.9rem;
+    background-size: 1.05rem;
+  }
+
+  @media (min-width: 64rem) {
+    .grupa__lista {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---------- Plan dnia (oś czasu) ---------- */
+  .plan__naglowek {
+    font-weight: 400;
+    font-size: clamp(1.9rem, 2.8vw + 1rem, 3rem);
+  }
+
+  .plan__naglowek :global(.lasu) {
+    font-weight: 700;
+  }
+
+  .plan__lista {
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 3.75rem) 0 0;
+    padding: 0;
+  }
+
+  .plan__etap {
+    position: relative;
+    padding: 0 0 clamp(2rem, 4vw, 2.75rem) 3.5rem;
+  }
+
+  .plan__etap:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Pionowa linia łącząca etapy */
+  .plan__etap::before {
+    content: '';
+    position: absolute;
+    left: calc(1.15rem - 1px);
+    top: 2.6rem;
+    bottom: 0.35rem;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--zloto);
+    opacity: 0.55;
+  }
+
+  .plan__etap:last-child::before {
+    display: none;
+  }
+
+  /* Znacznik etapu – złote kółko ze strzałką, jak punktory na starej stronie */
+  .plan__etap::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    background: var(--zloto)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23161a16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E")
+      center / 1.15rem no-repeat;
+    box-shadow: 0 0 0 6px var(--bialy);
+  }
+
+  .plan__tytul {
+    margin: 0 0 0.45rem;
+    padding-top: 0.2rem;
+    font-size: clamp(1.15rem, 0.5vw + 1rem, 1.35rem);
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+
+  .plan__godziny {
+    color: var(--braz);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .plan__kreska {
+    color: var(--zloto);
+    font-weight: 400;
+  }
+
+  .plan__opis {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* ---------- Spacer ---------- */
+  .spacer__haslo {
+    max-width: 52rem;
+    margin-inline: auto;
+    font-size: clamp(1.2rem, 1.3vw + 0.85rem, 1.85rem);
+    font-style: normal;
+  }
+
+  .spacer__haslo + .spacer__haslo {
+    margin-top: 1.25rem;
+  }
+
+  .spacer__haslo :global(.marka) {
+    font-style: italic;
+  }
+
+  .spacer__karty {
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  }
+
+  .spacer__karty .karta {
+    display: block;
+    margin: 0;
+    font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.2rem);
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .spacer__karty strong {
+    color: var(--braz);
+  }
+
+  @media (min-width: 64rem) {
+    .spacer__karty {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---------- Oferta ---------- */
+  .oferta__naglowek {
+    color: var(--braz);
+  }
+
+  .oferta__karty {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .oferta__karty h3 {
+    overflow-wrap: anywhere;
+    hyphens: manual;
+  }
+
+  @media (min-width: 64rem) {
+    .oferta__karty {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---------- Zapisy: formularz obok zdjęcia polany ---------- */
+  .zapisy__uklad {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  .zapisy__karta h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 64rem) {
+    /* Jak na starej stronie: formularz lekko zachodzi na zdjęcie */
+    .zapisy__uklad {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .zapisy__karta {
+      position: relative;
+      z-index: 1;
+      grid-column: 1 / 8;
+      grid-row: 1;
+    }
+
+    .zapisy__zdjecie {
+      grid-column: 7 / 13;
+      grid-row: 1;
+      align-self: stretch;
+      padding-block: clamp(2.5rem, 6vw, 4.5rem);
+    }
+
+    .zapisy__zdjecie :global(.zdjecie) {
+      height: 100%;
+      border-radius: 40px;
+    }
+
+    .zapisy__zdjecie :global(img) {
+      aspect-ratio: auto;
+      object-position: 88% 60%;
+    }
+  }
+
+  /* ---------- Zakończenie ---------- */
+  .zakonczenie :global(.zakonczenie__logo) {
+    width: min(100%, 34rem);
+    height: auto;
+    margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .zakonczenie p {
+    font-size: clamp(1.2rem, 1vw + 0.9rem, 1.65rem);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+</style>

@@ -27,7 +27,7 @@ const mapaTytul = 'Mapa dojazdu: Petronelów 36B, 98-113 Buczek';
         <h1>Najbliższe wydarzenia w <Marka /></h1>
       </header>
       <div data-pokaz style="--opoznienie: 0.1s">
-        <ListaWydarzen domyslnyZapis="#zapisy" />
+        <ListaWydarzen domyslnyZapis="#zapisy" poziomNaglowka={2} />
       </div>
     </div>
   </section>
@@ -73,6 +73,7 @@ const mapaTytul = 'Mapa dojazdu: Petronelów 36B, 98-113 Buczek';
         <Formularz
           nazwa="zapis-wydarzenia"
           temat="Zapis na szkolenie – najbliższe wydarzenia"
+          komunikatSukcesu="Dziękuję, zgłoszenie zostało wysłane."
           listy={[
             {
               etykieta: 'Jaki rodzaj szkolenia Cię interesuje?',
