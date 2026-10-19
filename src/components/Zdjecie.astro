@@ -1,0 +1,61 @@
+---
+// Zdjęcie z folderu zdjecia/: automatycznie zmniejszane, w formatach AVIF i WebP,
+// ładowane dopiero przy przewijaniu. Gdy pliku brakuje, pokazuje czytelny placeholder.
+import { Picture } from 'astro:assets';
+import { zdjecie } from '../lib/zdjecia';
+
+interface Props {
+  plik: string;
+  alt: string;
+  /** Jak szeroko zdjęcie jest wyświetlane – pomaga przeglądarce wybrać rozmiar. */
+  sizes?: string;
+  /** true dla dużego zdjęcia na górze strony (ładuje się od razu). */
+  priorytet?: boolean;
+  class?: string;
+  /** Kadrowanie, np. "50% 30%" (CSS object-position). */
+  kadr?: string;
+  /** Proporcje ramki, np. "4 / 5". */
+  proporcje?: string;
+}
+
+const { plik, alt, sizes = '(min-width: 52rem) 40vw, 100vw', priorytet = false, class: klasa, kadr, proporcje } = Astro.props;
+const obraz = zdjecie(plik);
+const szerokosci = obraz ? [480, 800, 1200, 1600, 2000].filter((w) => w <= obraz.width) : [];
+if (obraz && !szerokosci.includes(obraz.width) && obraz.width < 2000) szerokosci.push(obraz.width);
+const styl = [kadr && `--kadr: ${kadr}`, proporcje && `--proporcje: ${proporcje}`].filter(Boolean).join('; ');
+---
+
+{
+  obraz ? (
+    <figure class:list={['zdjecie', klasa]} style={styl || undefined}>
+      <Picture
+        src={obraz}
+        alt={alt}
+        widths={szerokosci}
+        sizes={sizes}
+        formats={['avif', 'webp']}
+        quality={78}
+        priority={priorytet}
+        loading={priorytet ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    </figure>
+  ) : (
+    <div class:list={['brak-zdjecia', klasa]} role="img" aria-label={alt}>
+      Tu będzie zdjęcie: {alt}
+      <br />
+      (brak pliku zdjecia/{plik})
+    </div>
+  )
+}
+
+<style>
+  figure {
+    margin: 0;
+  }
+
+  .zdjecie :global(img) {
+    object-position: var(--kadr, 50% 50%);
+    aspect-ratio: var(--proporcje, auto);
+  }
+</style>

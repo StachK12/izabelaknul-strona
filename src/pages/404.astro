@@ -1,0 +1,17 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+---
+
+<Uklad tytul="Nie znaleziono strony" opis="Ta strona nie istnieje albo zmieniła adres." pasekKontaktu={false} bezIndeksu>
+  <section class="sekcja">
+    <div class="kontener kontener--waski wycentrowane">
+      <span class="etykieta">Błąd 404</span>
+      <h1>Nie znaleziono strony</h1>
+      <p class="prowadzenie">Ta strona nie istnieje albo zmieniła adres.</p>
+      <div class="przyciski">
+        <a class="przycisk" href="/">Strona główna</a>
+        <a class="przycisk przycisk--obrys" href="/kontakt">Kontakt</a>
+      </div>
+    </div>
+  </section>
+</Uklad>

@@ -1,0 +1,6 @@
+# Przekierowania 301 ze starych adresów (kreator WebWave) na nowe.
+/o-mnie-2                 /o-mnie                301
+/polityka-prywatnosci-2   /polityka-prywatnosci  301
+/sitemap                  /sitemap-index.xml     301
+# Stary adres mapy strony pokazuje nową mapę.
+/sitemap.xml              /sitemap-index.xml     200

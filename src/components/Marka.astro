@@ -1,0 +1,11 @@
+---
+// Nazwa „czasdolasu” w stylu marki: kursywa, „lasu” w zieleni.
+// Domyślnie małymi literami; można podać inną pisownię, np. <Marka czasdo="CZASDO" lasu="LASU" />.
+interface Props {
+  czasdo?: string;
+  lasu?: string;
+}
+const { czasdo = 'czasdo', lasu = 'lasu' } = Astro.props;
+---
+
+<span class="marka">{czasdo}<span class="lasu">{lasu}</span></span>

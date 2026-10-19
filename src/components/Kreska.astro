@@ -1,0 +1,13 @@
+---
+// Ozdobna, odręczna kreska z listkiem – nawiązanie do logo czasdolasu.
+interface Props {
+  class?: string;
+}
+const { class: klasa } = Astro.props;
+---
+
+<svg class:list={['kreska', klasa]} viewBox="0 0 240 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+  <path d="M4 16c30-6 60-8 92-5s58 4 84-2" />
+  <path d="M184 9c6-7 16-8 22-4-5 6-14 8-22 4Zm0 0c10-1 16-1 22-4" />
+  <path d="M212 14c8-2 16-2 24 0" />
+</svg>

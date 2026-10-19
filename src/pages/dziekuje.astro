@@ -1,0 +1,15 @@
+---
+// Strona po wysłaniu formularza (gdy przeglądarka ma wyłączony JavaScript).
+import Uklad from '../layouts/Uklad.astro';
+---
+
+<Uklad tytul="Dziękuję" opis="Wiadomość została wysłana." pasekKontaktu={false} bezIndeksu>
+  <section class="sekcja">
+    <div class="kontener kontener--waski wycentrowane">
+      <h1>Dziękuję, wiadomość została wysłana.</h1>
+      <div class="przyciski">
+        <a class="przycisk" href="/">Wróć na stronę główną</a>
+      </div>
+    </div>
+  </section>
+</Uklad>

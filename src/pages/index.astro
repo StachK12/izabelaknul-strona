@@ -1,0 +1,182 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+import Zdjecie from '../components/Zdjecie.astro';
+import Marka from '../components/Marka.astro';
+import Kreska from '../components/Kreska.astro';
+import Ikona from '../components/Ikona.astro';
+import Formularz from '../components/Formularz.astro';
+---
+
+<Uklad
+  tytul="Izabela Knul – szkolenia i mentoring dla nauczycieli i dyrektorów"
+  opis="Izabela Knul – edukatorka, pedagożka, nauczycielka. Szkolenia dla szkół, outdoorowe warsztaty dla nauczycieli czasdolasu i program mentoringowy EduMastermind."
+  pasekKontaktu={false}
+>
+  <!-- Baner ze zdjęciem i cytatem -->
+  <section class="baner" aria-label="Cytat">
+    <Zdjecie
+      plik="strona-glowna-brzoza.jpg"
+      alt="Izabela Knul w kremowym żakiecie, uśmiechnięta, opiera się o pień brzozy na tle zielonego pola"
+      sizes="100vw"
+      priorytet
+      kadr="35% 30%"
+      class="baner__zdjecie"
+    />
+    <figure class="baner__cytat">
+      <blockquote class="cytat"><p>Środowisko jest trzecim nauczycielem</p></blockquote>
+      <figcaption class="cytat">L. Malaguzzi</figcaption>
+    </figure>
+  </section>
+
+  <!-- Przedstawienie -->
+  <section class="sekcja">
+    <div class="kontener dwie-kolumny przedstawienie">
+      <div data-pokaz>
+        <h1 class="przedstawienie__imie">Izabela Knul</h1>
+        <p class="prowadzenie">
+          edukatorka, pedagożka, nauczycielka. Twórczyni pierwszej w Polsce outdoorowej przestrzeni rozwojowej dla nauczycieli <Marka />.
+        </p>
+        <div class="przyciski">
+          <a class="przycisk przycisk--obrys" href="/o-mnie">Dowiedz się więcej<span class="sr-only"> o mnie</span></a>
+        </div>
+      </div>
+      <div data-pokaz style="--opoznienie: 0.15s">
+        <Zdjecie
+          plik="portret-czarny-stroj.jpg"
+          alt="Portret Izabeli Knul w czarnym stroju, uśmiechniętej, z okularami w uniesionej dłoni"
+          sizes="(min-width: 52rem) 30rem, 100vw"
+          proporcje="4 / 5"
+          kadr="50% 25%"
+          class="przedstawienie__zdjecie"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Hasła -->
+  <section class="sekcja sekcja--ciasna sekcja--piasek hasla" aria-label="Moje motto">
+    <div class="kontener wycentrowane">
+      <Kreska />
+      <p class="haslo" data-pokaz>ŁĄCZĘ ROZWÓJ ZAWODOWY NAUCZYCIELI Z ICH ROZWOJEM OSOBISTYM</p>
+      <p class="haslo" data-pokaz style="--opoznienie: 0.15s">INSPIRUJĘ, WSPIERAM, DZIELĘ SIĘ DOŚWIADCZENIEM</p>
+    </div>
+  </section>
+
+  <!-- Oferta -->
+  <section class="sekcja" id="oferta" aria-labelledby="oferta-naglowek">
+    <div class="kontener">
+      <h2 id="oferta-naglowek" class="wycentrowane">OFERTA</h2>
+      <div class="siatka oferta">
+        <article class="karta" data-pokaz>
+          <h3>SZKOLENIA</h3>
+          <p>Podczas moich szkoleń i warsztatów otrzymasz <span class="wyr">rzetelną wiedzę, praktyczne narzędzia i sprawdzone metody.</span></p>
+          <p>Pokażę Ci, jak <span class="wyr">zrezygnować</span> ze zbędnych działań i nadmiernej dokumentacji.</p>
+          <p>Wspólnie zaplanujemy, co zrobić, żeby być <span class="wyr">mniej przeciążonym i pracować lżej.</span></p>
+          <div class="przyciski">
+            <a class="przycisk przycisk--obrys" href="/szkolenia">Dowiedz się więcej<span class="sr-only"> o szkoleniach</span><Ikona nazwa="strzalka" /></a>
+          </div>
+        </article>
+
+        <article class="karta" data-pokaz style="--opoznienie: 0.1s">
+          <h3><Marka czasdo="CZASDO" lasu="LASU" /></h3>
+          <p>Stworzyłam <span class="wyr">pierwszą w Polsce</span> przestrzeń <em class="wyr">outdoorowych warsztatów dla nauczycieli</em> <strong><Marka czasdo="czasdo" lasu="lasu." /></strong></p>
+          <p>Zapraszam Cię na rzetelne szkolenia metodyczne, obejmujące <span class="wyr">najważniejsze trendy współczesnej edukacji.</span></p>
+          <div class="przyciski">
+            <a class="przycisk przycisk--obrys" href="/czas-do-lasu">Dowiedz się więcej<span class="sr-only"> o czasdolasu</span><Ikona nazwa="strzalka" /></a>
+          </div>
+        </article>
+
+        <article class="karta" data-pokaz style="--opoznienie: 0.2s">
+          <h3>MENTORING</h3>
+          <p><span class="wyr">EduMastermind</span> to mój autorski program wsparcia dyrektorów i nauczycieli.</p>
+          <p>Pomagam wyznaczać cele, pilnuję Twoich postępów, towarzyszę w codziennej pracy.</p>
+          <p>Dbam o to, by <span class="wyr">zmiana</span> naprawdę się wydarzyła.</p>
+          <div class="przyciski">
+            <a class="przycisk przycisk--obrys" href="/mentoring">Dowiedz się więcej<span class="sr-only"> o mentoringu</span><Ikona nazwa="strzalka" /></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="sekcja sekcja--piasek" id="kontakt" aria-labelledby="kontakt-naglowek">
+    <div class="kontener kontener--waski">
+      <h2 id="kontakt-naglowek" class="wycentrowane">Skontaktuj się</h2>
+      <div class="karta karta--biala">
+        <Formularz nazwa="kontakt" temat="Wiadomość ze strony izabelaknul.pl" />
+      </div>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  .baner {
+    position: relative;
+    display: grid;
+    min-height: clamp(22rem, 72vh, 46rem);
+    overflow: hidden;
+  }
+
+  .baner :global(.baner__zdjecie) {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .baner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(22, 26, 22, 0) 45%, rgba(22, 26, 22, 0.7) 100%);
+  }
+
+  .baner__cytat {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    justify-self: end;
+    width: 100%;
+    max-width: calc(var(--szerokosc) + 2 * var(--margines));
+    margin: 0 auto;
+    padding: 2rem var(--margines) clamp(2rem, 6vw, 4rem);
+    color: var(--bialy);
+    text-align: right;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+  }
+
+  .baner__cytat blockquote {
+    margin: 0 0 0.4rem;
+    font-size: clamp(1.4rem, 2.6vw + 0.6rem, 2.4rem);
+    line-height: 1.25;
+  }
+
+  .baner__cytat figcaption {
+    font-size: clamp(1.1rem, 1.2vw + 0.7rem, 1.6rem);
+  }
+
+  .przedstawienie__imie {
+    font-size: clamp(2.75rem, 6vw + 1rem, 5.25rem);
+    margin-bottom: 0.35em;
+  }
+
+  .przedstawienie :global(.przedstawienie__zdjecie) {
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  .hasla .haslo + .haslo {
+    margin-top: 1rem;
+  }
+
+  .oferta {
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    .oferta {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

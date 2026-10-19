@@ -1,0 +1,145 @@
+---
+// Lista nadchodzących wydarzeń z pliku wydarzenia.yaml.
+// Miniony termin znika przy każdej publikacji strony, a dodatkowo
+// mały skrypt chowa wydarzenia, które minęły od ostatniej publikacji.
+import Zdjecie from './Zdjecie.astro';
+import Ikona from './Ikona.astro';
+import { nadchodzaceWydarzenia, formatujDate } from '../lib/wydarzenia';
+
+interface Props {
+  /** Dokąd prowadzi „Zapisz się”, gdy wydarzenie nie ma własnego linku */
+  domyslnyZapis?: string;
+}
+
+const { domyslnyZapis = '/kontakt' } = Astro.props;
+const wydarzenia = nadchodzaceWydarzenia();
+const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
+---
+
+<div class="wydarzenia" data-wydarzenia>
+  <ul class="wydarzenia__lista">
+    {
+      wydarzenia.map((w) => (
+        <li class="wydarzenie" data-koniec={w.daty[w.daty.length - 1]} data-pokaz>
+          {w.zdjecie && (
+            <Zdjecie plik={w.zdjecie} alt="" sizes="(min-width: 48rem) 16rem, 100vw" class="wydarzenie__zdjecie" proporcje="3 / 2" />
+          )}
+          <div class="wydarzenie__tresc">
+            <h3>{w.tytul}</h3>
+            <p class="wydarzenie__data">
+              <Ikona nazwa="kalendarz" />
+              <span>
+                Data:{' '}
+                {w.daty.map((d, i) => (
+                  <>
+                    {i > 0 && ' / '}
+                    <time datetime={d}>{formatujDate(d)}</time>
+                  </>
+                ))}
+                {w.godzina && <>, {w.godzina}</>}
+              </span>
+            </p>
+            {w.miejsce && (
+              <p class="wydarzenie__miejsce">
+                <Ikona nazwa="pinezka" />
+                <span>{w.miejsce}</span>
+              </p>
+            )}
+            {w.opis && <p>{w.opis}</p>}
+            <div class="przyciski">
+              {w.link_wiecej && (
+                <a class="przycisk przycisk--obrys" href={w.link_wiecej}>
+                  Czytaj o szkoleniu
+                </a>
+              )}
+              {zewnetrzny(w.link_zapisu ?? domyslnyZapis) ? (
+                <a class="przycisk" href={w.link_zapisu} target="_blank" rel="noopener">
+                  Zapisz się<span class="sr-only"> na „{w.tytul}” (otwiera się w nowej karcie)</span>
+                </a>
+              ) : (
+                <a class="przycisk" href={w.link_zapisu ?? domyslnyZapis}>
+                  Zapisz się<span class="sr-only"> na „{w.tytul}”</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="wydarzenia__brak" data-brak hidden={wydarzenia.length > 0}>
+    Obecnie nie ma zaplanowanych terminów. Nowe wydarzenia pojawią się tutaj wkrótce – zapraszam do kontaktu.
+  </p>
+</div>
+
+<script>
+  const dzis = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Warsaw' }).format(new Date());
+  document.querySelectorAll<HTMLElement>('[data-wydarzenia]').forEach((lista) => {
+    const elementy = [...lista.querySelectorAll<HTMLElement>('[data-koniec]')];
+    elementy.forEach((el) => {
+      if ((el.dataset.koniec ?? '') < dzis) el.remove();
+    });
+    if (!lista.querySelector('[data-koniec]')) {
+      lista.querySelector<HTMLElement>('[data-brak]')?.removeAttribute('hidden');
+    }
+  });
+</script>
+
+<style>
+  .wydarzenia__lista {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .wydarzenie {
+    display: grid;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-radius: var(--zaokraglenie);
+    background: var(--zloto-jasne);
+  }
+
+  @media (min-width: 48rem) {
+    .wydarzenie {
+      grid-template-columns: 16rem 1fr;
+      align-items: center;
+    }
+  }
+
+  .wydarzenie h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .wydarzenie__data,
+  .wydarzenie__miejsce {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  .wydarzenie__data :global(svg),
+  .wydarzenie__miejsce :global(svg) {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex: none;
+    color: var(--braz);
+  }
+
+  .wydarzenie .przyciski {
+    margin-top: 1.25rem;
+  }
+
+  .wydarzenia__brak {
+    padding: 1.5rem;
+    border-radius: var(--zaokraglenie);
+    background: var(--piasek);
+    font-weight: 700;
+    text-align: center;
+  }
+</style>

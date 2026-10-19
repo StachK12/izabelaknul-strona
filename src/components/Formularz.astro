@@ -1,0 +1,309 @@
+---
+// Formularz obsługiwany przez Netlify Forms (bez zewnętrznych skryptów).
+// Każdy formularz musi mieć własną, unikalną nazwę (prop "nazwa").
+// Etykiety pól są takie same jak na starej stronie.
+
+interface Lista {
+  etykieta: string;
+  nazwa: string;
+  opcje: string[];
+  wymagane?: boolean;
+}
+
+interface Props {
+  nazwa: string;
+  /** Temat e-maila z powiadomieniem od Netlify */
+  temat: string;
+  listy?: Lista[];
+  etykietaWiadomosci?: string;
+  wiadomoscWymagana?: boolean;
+  class?: string;
+}
+
+const {
+  nazwa,
+  temat,
+  listy = [],
+  etykietaWiadomosci = 'Wiadomość',
+  wiadomoscWymagana = true,
+  class: klasa,
+} = Astro.props;
+
+const id = (pole: string) => `${nazwa}-${pole}`;
+---
+
+<form
+  class:list={['formularz', klasa]}
+  name={nazwa}
+  method="POST"
+  action="/dziekuje"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  data-formularz
+>
+  <input type="hidden" name="form-name" value={nazwa} />
+  <input type="hidden" name="subject" value={temat} />
+
+  <p class="formularz__pulapka" aria-hidden="true">
+    <label>Nie wypełniaj tego pola: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <p class="formularz__info">Pola oznaczone <span aria-hidden="true">*</span> są wymagane.</p>
+
+  <div class="formularz__siatka">
+    <div class="pole">
+      <label for={id('imie')}>Imię i nazwisko</label>
+      <input id={id('imie')} name="imie" type="text" autocomplete="name" />
+    </div>
+
+    <div class="pole">
+      <label for={id('email')}>Email <span class="wymagane" aria-hidden="true">*</span></label>
+      <input id={id('email')} name="email" type="email" autocomplete="email" required />
+    </div>
+
+    <div class="pole pole--cale">
+      <label for={id('telefon')}>Numer telefonu</label>
+      <input
+        id={id('telefon')}
+        name="telefon"
+        type="tel"
+        autocomplete="tel"
+        inputmode="tel"
+        pattern="[0-9 +()\-]{7,20}"
+        title="Wpisz numer telefonu, np. 602 677 707"
+      />
+    </div>
+
+    {
+      listy.map((lista) => (
+        <div class="pole pole--cale">
+          <label for={id(lista.nazwa)}>
+            {lista.etykieta}
+            {lista.wymagane && (
+              <span class="wymagane" aria-hidden="true">
+                {' '}*
+              </span>
+            )}
+          </label>
+          <select id={id(lista.nazwa)} name={lista.nazwa} required={lista.wymagane}>
+            {lista.opcje.map((opcja) => (
+              <option value={opcja}>{opcja}</option>
+            ))}
+          </select>
+        </div>
+      ))
+    }
+
+    <div class="pole pole--cale">
+      <label for={id('wiadomosc')}>
+        {etykietaWiadomosci}
+        {wiadomoscWymagana && <span class="wymagane" aria-hidden="true"> *</span>}
+      </label>
+      <textarea id={id('wiadomosc')} name="wiadomosc" rows="5" required={wiadomoscWymagana}></textarea>
+    </div>
+
+    <div class="pole pole--cale pole--zgoda">
+      <input id={id('zgoda')} name="zgoda" type="checkbox" value="tak" required />
+      <label for={id('zgoda')}>
+        Wyrażam zgodę na przetwarzanie moich danych osobowych podanych w formularzu w celu odpowiedzi na wiadomość.
+        Administratorem danych jest Izabela Knul. Więcej informacji w <a href="/polityka-prywatnosci">Polityce prywatności</a>.
+        <span class="wymagane" aria-hidden="true">*</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="formularz__wyslij">
+    <button class="przycisk" type="submit">Wyślij</button>
+  </div>
+
+  <p class="formularz__komunikat" role="status" aria-live="polite" tabindex="-1" hidden></p>
+</form>
+
+<script>
+  const KOMUNIKATY = {
+    sukces: 'Dziękuję, wiadomość została wysłana.',
+    brakPol: 'Proszę wypełnić wszystkie wymagane pola.',
+    blad: 'Nie udało się wysłać wiadomości. Spróbuj ponownie albo zadzwoń: +48 602 67 77 07.',
+  };
+
+  const pokaz = (formularz: HTMLFormElement, tekst: string, rodzaj: 'sukces' | 'blad') => {
+    const komunikat = formularz.querySelector<HTMLElement>('.formularz__komunikat');
+    if (!komunikat) return;
+    komunikat.textContent = tekst;
+    komunikat.dataset.rodzaj = rodzaj;
+    komunikat.hidden = false;
+    komunikat.focus();
+  };
+
+  document.querySelectorAll<HTMLFormElement>('form[data-formularz]').forEach((formularz) => {
+    formularz.noValidate = true;
+
+    formularz.addEventListener('submit', async (zdarzenie) => {
+      zdarzenie.preventDefault();
+
+      if (!formularz.checkValidity()) {
+        pokaz(formularz, KOMUNIKATY.brakPol, 'blad');
+        formularz.querySelector<HTMLElement>(':invalid')?.focus();
+        return;
+      }
+
+      const przycisk = formularz.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (przycisk) przycisk.disabled = true;
+
+      try {
+        const dane = new URLSearchParams(new FormData(formularz) as unknown as Record<string, string>);
+        const odpowiedz = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: dane.toString(),
+        });
+        if (!odpowiedz.ok) throw new Error(String(odpowiedz.status));
+        formularz.reset();
+        pokaz(formularz, KOMUNIKATY.sukces, 'sukces');
+      } catch {
+        pokaz(formularz, KOMUNIKATY.blad, 'blad');
+      } finally {
+        if (przycisk) przycisk.disabled = false;
+      }
+    });
+  });
+
+  // Przyciski „Zapisz się na szkolenie” mogą od razu wybrać szkolenie na liście.
+  document.querySelectorAll<HTMLAnchorElement>('a[data-wybierz]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const cel = document.querySelector(link.hash);
+      const lista = cel?.querySelector<HTMLSelectElement>('select');
+      const wartosc = link.dataset.wybierz;
+      if (lista && wartosc && [...lista.options].some((o) => o.value === wartosc)) lista.value = wartosc;
+    });
+  });
+</script>
+
+<style>
+  .formularz {
+    width: 100%;
+  }
+
+  .formularz__pulapka {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .formularz__info {
+    margin-bottom: 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .formularz__siatka {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 40rem) {
+    .formularz__siatka {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pole--cale {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .pole label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  .wymagane {
+    color: var(--braz);
+  }
+
+  .pole input:not([type='checkbox']),
+  .pole select,
+  .pole textarea {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 0.9rem;
+    border: 1.5px solid var(--braz);
+    border-radius: 10px;
+    background: var(--bialy);
+    color: var(--ciemny);
+    font: inherit;
+  }
+
+  .pole select {
+    appearance: none;
+    padding-right: 2.75rem;
+    background: var(--bialy)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a5b2f' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+      right 0.9rem center / 1.2rem no-repeat;
+  }
+
+  .pole textarea {
+    resize: vertical;
+  }
+
+  .pole input:focus-visible,
+  .pole select:focus-visible,
+  .pole textarea:focus-visible {
+    outline: 3px solid var(--zloto);
+    outline-offset: 1px;
+    border-color: var(--ciemny);
+  }
+
+  .pole--zgoda {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .pole--zgoda input {
+    width: 1.35rem;
+    height: 1.35rem;
+    margin: 0.15rem 0 0;
+    accent-color: var(--braz);
+  }
+
+  .pole--zgoda label {
+    margin: 0;
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .formularz__wyslij {
+    margin-top: 1.75rem;
+  }
+
+  .formularz__wyslij .przycisk {
+    min-width: 10rem;
+  }
+
+  .formularz__wyslij .przycisk:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .formularz__komunikat {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    border-left: 5px solid currentColor;
+    font-weight: 700;
+  }
+
+  .formularz__komunikat[data-rodzaj='sukces'] {
+    background: #e7f2ee;
+    color: #1f5a4c;
+  }
+
+  .formularz__komunikat[data-rodzaj='blad'] {
+    background: #f8e6e3;
+    color: #8a2a1c;
+  }
+</style>

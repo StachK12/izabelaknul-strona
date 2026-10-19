@@ -1,0 +1,225 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/marka/logo-izabela-knul.png';
+import Ikona from './Ikona.astro';
+import { menu } from '../data/strona';
+
+const sciezka = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const aktywna = (adres: string) => sciezka === adres;
+---
+
+<header class="naglowek">
+  <div class="kontener naglowek__wnetrze">
+    <a class="naglowek__logo" href="/">
+      <Image src={logo} alt="Izabela Knul – szkolenia i mentoring, strona główna" width={220} densities={[1, 2]} loading="eager" />
+    </a>
+
+    <button class="naglowek__przelacznik" type="button" aria-expanded="false" aria-controls="menu-glowne">
+      <Ikona nazwa="menu" class="ikona-otworz" />
+      <Ikona nazwa="zamknij" class="ikona-zamknij" />
+      <span>Menu</span>
+    </button>
+
+    <nav class="menu" id="menu-glowne" aria-label="Menu główne">
+      <ul class="menu__lista">
+        {
+          menu.map((pozycja) => (
+            <li>
+              <a href={pozycja.adres} aria-current={aktywna(pozycja.adres) ? 'page' : undefined}>
+                {pozycja.tekst}
+              </a>
+            </li>
+          ))
+        }
+        <li class="menu__kontakt">
+          <a class="przycisk" href="/kontakt" aria-current={aktywna('/kontakt') ? 'page' : undefined}>Kontakt</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const przelacznik = document.querySelector<HTMLButtonElement>('.naglowek__przelacznik');
+  const menu = document.getElementById('menu-glowne');
+
+  const ustaw = (otwarte: boolean) => {
+    przelacznik?.setAttribute('aria-expanded', String(otwarte));
+    document.documentElement.classList.toggle('menu-otwarte', otwarte);
+  };
+
+  przelacznik?.addEventListener('click', () => {
+    ustaw(przelacznik.getAttribute('aria-expanded') !== 'true');
+  });
+
+  document.addEventListener('keydown', (zdarzenie) => {
+    if (zdarzenie.key === 'Escape' && przelacznik?.getAttribute('aria-expanded') === 'true') {
+      ustaw(false);
+      przelacznik.focus();
+    }
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => ustaw(false)));
+  window.matchMedia('(min-width: 75rem)').addEventListener('change', () => ustaw(false));
+</script>
+
+<style>
+  .naglowek {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid #efefef;
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  }
+
+  .naglowek__wnetrze {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: var(--naglowek-wysokosc);
+  }
+
+  .naglowek__logo {
+    display: block;
+    flex: none;
+    padding-block: 0.5rem;
+  }
+
+  .naglowek__logo :global(img) {
+    width: clamp(150px, 28vw, 210px);
+    height: auto;
+  }
+
+  .naglowek__przelacznik {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.9rem;
+    border: 2px solid var(--braz);
+    border-radius: var(--zaokraglenie);
+    background: transparent;
+    color: var(--braz);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .naglowek__przelacznik :global(svg) {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .naglowek__przelacznik :global(.ikona-zamknij),
+  :global(.menu-otwarte) .naglowek__przelacznik :global(.ikona-otworz) {
+    display: none;
+  }
+
+  :global(.menu-otwarte) .naglowek__przelacznik :global(.ikona-zamknij) {
+    display: block;
+  }
+
+  .menu__lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .menu a:not(.przycisk) {
+    display: block;
+    color: var(--ciemny);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .menu a:not(.przycisk):hover {
+    color: var(--braz);
+  }
+
+  .menu a[aria-current='page']:not(.przycisk) {
+    color: var(--braz);
+    text-decoration: underline;
+    text-decoration-color: var(--zloto);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.45em;
+  }
+
+  /* Telefon i tablet: menu rozwijane pod nagłówkiem */
+  @media (max-width: 74.99rem) {
+    .menu {
+      position: absolute;
+      inset: 100% 0 auto;
+      max-height: calc(100dvh - var(--naglowek-wysokosc));
+      overflow-y: auto;
+      padding: 0.5rem var(--margines) 1.75rem;
+      background: var(--bialy);
+      border-bottom: 1px solid #efefef;
+      box-shadow: 0 24px 30px -24px rgba(22, 26, 22, 0.35);
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-0.5rem);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0s linear 0.25s;
+    }
+
+    :global(.menu-otwarte) .menu {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .menu__lista > li:not(.menu__kontakt) {
+      border-bottom: 1px solid var(--zloto-jasne);
+    }
+
+    .menu a:not(.przycisk) {
+      padding: 0.9rem 0;
+      font-size: 1.125rem;
+    }
+
+    .menu__kontakt {
+      margin-top: 1.25rem;
+    }
+
+    .menu__kontakt .przycisk {
+      width: 100%;
+    }
+  }
+
+  /* Komputer: menu w jednym wierszu */
+  @media (min-width: 75rem) {
+    .naglowek__przelacznik {
+      display: none;
+    }
+
+    .menu__lista {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+
+    .menu a:not(.przycisk) {
+      padding-block: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .menu__kontakt .przycisk {
+      min-height: 2.75rem;
+      padding: 0.55rem 1.3rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu {
+      transition: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,169 @@
+---
+// Wspólny układ wszystkich podstron: nagłówek, treść, pasek kontaktu, stopka,
+// metadane SEO, Open Graph i dane strukturalne (Person / EducationalOrganization).
+import '@fontsource-variable/figtree';
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import Naglowek from '../components/Naglowek.astro';
+import Stopka from '../components/Stopka.astro';
+import PasekKontaktu from '../components/PasekKontaktu.astro';
+import { strona } from '../data/strona';
+import { zdjecie } from '../lib/zdjecia';
+
+interface Props {
+  /** Tytuł w karcie przeglądarki i w Google (bez „| Izabela Knul” – dopisuje się sam) */
+  tytul: string;
+  /** Opis strony dla Google i przy udostępnianiu (ok. 150 znaków) */
+  opis: string;
+  /** Zdjęcie przy udostępnianiu (plik z folderu zdjecia/) */
+  zdjecieOg?: string;
+  /** Pasek „Skontaktuj się” na dole strony; false = bez paska */
+  pasekKontaktu?: false | { naglowek?: string; przycisk?: string; adres?: string };
+  /** Dodatkowe dane strukturalne tej podstrony */
+  daneStrukturalne?: Record<string, unknown>[];
+  /** Nie indeksuj w Google (np. strona podziękowania) */
+  bezIndeksu?: boolean;
+}
+
+const { tytul, opis, zdjecieOg = 'strona-glowna-brzoza.jpg', pasekKontaktu = {}, daneStrukturalne = [], bezIndeksu = false } = Astro.props;
+
+const pelnyTytul = Astro.url.pathname === '/' ? tytul : `${tytul} | Izabela Knul`;
+const sciezka = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const kanoniczny = new URL(sciezka, strona.adresStrony).href;
+
+const obrazOg = zdjecie(zdjecieOg);
+const og = obrazOg ? await getImage({ src: obrazOg, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpg', quality: 82 }) : undefined;
+const ogUrl = og ? new URL(og.src, strona.adresStrony).href : undefined;
+
+const osoba = {
+  '@type': 'Person',
+  '@id': `${strona.adresStrony}/#izabela-knul`,
+  name: 'Izabela Knul',
+  jobTitle: 'Edukatorka, pedagożka, nauczycielka',
+  url: strona.adresStrony,
+  telephone: strona.telefon,
+  sameAs: [strona.facebook, strona.instagram, strona.linkedin],
+  worksFor: { '@id': `${strona.adresStrony}/#organizacja` },
+};
+
+const organizacja = {
+  '@type': 'EducationalOrganization',
+  '@id': `${strona.adresStrony}/#organizacja`,
+  name: 'Izabela Knul – szkolenia i mentoring',
+  url: strona.adresStrony,
+  telephone: strona.telefon,
+  email: strona.email,
+  founder: { '@id': `${strona.adresStrony}/#izabela-knul` },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: strona.adres,
+    postalCode: strona.kodPocztowy,
+    addressLocality: strona.miejscowosc,
+    addressCountry: 'PL',
+  },
+  sameAs: [strona.facebook, strona.instagram, strona.linkedin],
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    osoba,
+    organizacja,
+    {
+      '@type': 'WebPage',
+      '@id': `${kanoniczny}#strona`,
+      url: kanoniczny,
+      name: pelnyTytul,
+      description: opis,
+      inLanguage: 'pl-PL',
+      isPartOf: { '@type': 'WebSite', name: 'Izabela Knul', url: strona.adresStrony },
+      about: { '@id': `${strona.adresStrony}/#organizacja` },
+    },
+    ...daneStrukturalne,
+  ],
+};
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pelnyTytul}</title>
+    <meta name="description" content={opis} />
+    <link rel="canonical" href={kanoniczny} />
+    {bezIndeksu && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="Izabela Knul – szkolenia i mentoring" />
+    <meta property="og:title" content={pelnyTytul} />
+    <meta property="og:description" content={opis} />
+    <meta property="og:url" content={kanoniczny} />
+    {ogUrl && <meta property="og:image" content={ogUrl} />}
+    {ogUrl && <meta property="og:image:width" content="1200" />}
+    {ogUrl && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <script is:inline>
+      // Delikatne animacje przy przewijaniu – tylko gdy użytkownik nie ogranicza ruchu.
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js-animacje');
+      }
+    </script>
+  </head>
+  <body>
+    <a class="przeskocz" href="#tresc">Przejdź do treści</a>
+    <Naglowek />
+    <main id="tresc" tabindex="-1">
+      <slot />
+      {pasekKontaktu !== false && <PasekKontaktu {...pasekKontaktu} />}
+    </main>
+    <Stopka />
+
+    <script>
+      if (document.documentElement.classList.contains('js-animacje')) {
+        const obserwator = new IntersectionObserver(
+          (wpisy) => {
+            for (const wpis of wpisy) {
+              if (wpis.isIntersecting) {
+                wpis.target.classList.add('widoczne');
+                obserwator.unobserve(wpis.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        document.querySelectorAll('[data-pokaz]').forEach((el) => obserwator.observe(el));
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  .przeskocz {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--zaokraglenie);
+    background: var(--ciemny);
+    color: var(--bialy);
+    font-weight: 700;
+    transform: translateY(-200%);
+  }
+
+  .przeskocz:focus {
+    transform: none;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

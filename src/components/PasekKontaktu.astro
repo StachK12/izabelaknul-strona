@@ -1,0 +1,37 @@
+---
+// Pasek z wezwaniem do działania na dole podstron.
+import Ikona from './Ikona.astro';
+import Kreska from './Kreska.astro';
+import { strona } from '../data/strona';
+
+interface Props {
+  naglowek?: string;
+  przycisk?: string;
+  adres?: string;
+}
+
+const { naglowek = 'Skontaktuj się', przycisk = 'Skontaktuj się', adres = '/kontakt' } = Astro.props;
+---
+
+<section class="sekcja sekcja--piasek pasek" aria-labelledby="pasek-kontaktu">
+  <div class="kontener wycentrowane" data-pokaz>
+    <Kreska />
+    <h2 id="pasek-kontaktu">{naglowek}</h2>
+    <div class="przyciski">
+      <a class="przycisk" href={adres}>
+        {przycisk}
+        <Ikona nazwa="strzalka" />
+      </a>
+      <a class="przycisk przycisk--obrys" href={strona.telefonLink}>
+        <Ikona nazwa="telefon" />
+        {strona.telefon}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pasek h2 {
+    margin-bottom: 0;
+  }
+</style>

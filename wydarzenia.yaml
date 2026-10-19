@@ -1,0 +1,31 @@
+# ================================================================
+#  NAJBLIŻSZE WYDARZENIA
+#  Ten plik zasila stronę /najblizsze-wydarzenia.
+#  Wydarzenia, których ostatnia data już minęła, chowają się same.
+# ================================================================
+#
+#  Jak dodać wydarzenie? Skopiuj cały blok od „- tytul:” do ostatniej
+#  linijki bloku, wklej go na dole pliku i zmień wartości.
+#  Zasady:
+#   • każde wydarzenie zaczyna się od myślnika „- ”,
+#   • wcięcia (spacje na początku linii) muszą zostać takie same,
+#   • daty wpisuj jako RRRR-MM-DD (np. 2026-11-28) albo DD.MM.RRRR (np. 28.11.2026),
+#   • linijki zaczynające się od # są komentarzami i nie pojawiają się na stronie,
+#   • pola oznaczone „(opcjonalne)” możesz usunąć albo zostawić puste.
+#
+#  Pola:
+#   tytul            – nazwa wydarzenia (wymagane)
+#   daty             – jedna lub kilka dat w nawiasach [ ], oddzielonych przecinkami (wymagane)
+#   godzina          – np. "9:00–15:00" (opcjonalne)
+#   miejsce          – np. "czasdolasu, Petronelów 36B" (opcjonalne)
+#   opis             – krótki opis (opcjonalne)
+#   zdjecie          – nazwa pliku z folderu zdjecia/ (opcjonalne)
+#   link_wiecej      – adres strony z opisem szkolenia (opcjonalne)
+#   link_zapisu      – adres formularza zapisu (opcjonalne; gdy pusty, przycisk prowadzi do formularza na stronie)
+# ================================================================
+
+- tytul: "Jedna klasa - wiele potrzeb"
+  daty: [2026-06-03, 2026-06-10]
+  zdjecie: szkolenie-jedna-klasa.jpg
+  link_wiecej: /szkolenia#jedna-klasa
+  link_zapisu: https://forms.gle/WxdUtMta2Z2TQXZZ8

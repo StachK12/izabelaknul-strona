@@ -1,0 +1,80 @@
+---
+import Uklad from '../layouts/Uklad.astro';
+import Formularz from '../components/Formularz.astro';
+import Ikona from '../components/Ikona.astro';
+import { strona } from '../data/strona';
+---
+
+<Uklad
+  tytul="Kontakt"
+  opis="Skontaktuj się z Izabelą Knul: telefon +48 602 67 77 07, formularz kontaktowy. Szkolenia dla szkół, czasdolasu, mentoring EduMastermind."
+  pasekKontaktu={false}
+>
+  <section class="sekcja">
+    <div class="kontener dwie-kolumny kontakt">
+      <div data-pokaz>
+        <span class="etykieta">Kontakt</span>
+        <h1>Skontaktuj się</h1>
+        <ul class="kontakt__dane">
+          <li>
+            <Ikona nazwa="telefon" />
+            <a href={strona.telefonLink}>{strona.telefon}</a>
+          </li>
+          <li>
+            <Ikona nazwa="pinezka" />
+            <a href={strona.mapa} target="_blank" rel="noopener">{strona.adres}<span class="sr-only"> (mapa Google, otwiera się w nowej karcie)</span></a>
+          </li>
+        </ul>
+        <p class="kontakt__social-etykieta">Sprawdź również:</p>
+        <ul class="kontakt__social">
+          <li><a href={strona.facebook} target="_blank" rel="noopener"><Ikona nazwa="facebook" />Facebook</a></li>
+          <li><a href={strona.instagram} target="_blank" rel="noopener"><Ikona nazwa="instagram" />Instagram</a></li>
+          <li><a href={strona.linkedin} target="_blank" rel="noopener"><Ikona nazwa="linkedin" />LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="karta karta--biala" data-pokaz style="--opoznienie: 0.15s">
+        <Formularz nazwa="kontakt" temat="Wiadomość ze strony izabelaknul.pl" />
+      </div>
+    </div>
+  </section>
+</Uklad>
+
+<style>
+  .kontakt {
+    align-items: start;
+  }
+
+  .kontakt ul {
+    margin: 0 0 1.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .kontakt__dane li,
+  .kontakt__social a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .kontakt__dane li {
+    margin-bottom: 0.8rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .kontakt :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: none;
+    color: var(--braz);
+  }
+
+  .kontakt__social-etykieta {
+    font-weight: 700;
+  }
+
+  .kontakt__social li {
+    margin-bottom: 0.5rem;
+  }
+</style>
