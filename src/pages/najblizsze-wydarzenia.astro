@@ -1,7 +1,6 @@
 ---
 import Uklad from '../layouts/Uklad.astro';
 import Marka from '../components/Marka.astro';
-import Kreska from '../components/Kreska.astro';
 import Ikona from '../components/Ikona.astro';
 import ListaWydarzen from '../components/ListaWydarzen.astro';
 import Formularz from '../components/Formularz.astro';
@@ -24,7 +23,6 @@ const mapaTytul = `Mapa dojazdu: ${pelnyAdres}`;
   <section class="sekcja wydarzenia-strona">
     <div class="kontener wydarzenia-strona__kontener">
       <header class="tytul-strony" data-pokaz>
-        <Kreska />
         <h1>Najbliższe wydarzenia w <Marka /></h1>
       </header>
       <div data-pokaz style="--opoznienie: 0.1s">

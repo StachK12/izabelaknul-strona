@@ -11,7 +11,7 @@ const aktywna = (adres: string) => sciezka === adres;
 <header class="naglowek">
   <div class="kontener naglowek__wnetrze">
     <a class="naglowek__logo" href="/">
-      <Image src={logo} alt="Izabela Knul – szkolenia i mentoring, strona główna" width={220} densities={[1, 2]} loading="eager" />
+      <Image src={logo} alt="Izabela Knul – szkolenia i mentoring, strona główna" width={380} densities={[1, 2]} loading="eager" />
     </a>
 
     <button class="naglowek__przelacznik" type="button" aria-expanded="false" aria-controls="menu-glowne">
@@ -100,7 +100,7 @@ const aktywna = (adres: string) => sciezka === adres;
   }
 
   .naglowek__logo :global(img) {
-    width: clamp(150px, 28vw, 210px);
+    width: clamp(210px, 58vw, 340px);
     height: auto;
   }
 
@@ -141,6 +141,7 @@ const aktywna = (adres: string) => sciezka === adres;
 
   .menu a:not(.przycisk) {
     display: block;
+    white-space: nowrap;
     color: var(--ciemny);
     font-weight: 700;
     text-decoration: none;
@@ -231,6 +232,16 @@ const aktywna = (adres: string) => sciezka === adres;
     .menu__kontakt .przycisk {
       min-height: 2.75rem;
       padding: 0.55rem 1.3rem;
+    }
+  }
+
+  @media (min-width: 75rem) and (max-width: 89.99rem) {
+    .naglowek__logo :global(img) {
+      width: 270px;
+    }
+
+    .menu__lista {
+      gap: 1.25rem;
     }
   }
 

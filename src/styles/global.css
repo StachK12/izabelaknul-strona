@@ -37,7 +37,7 @@
   --zaokraglenie-zdjecia: 20px;
   --cien: 0 18px 40px -22px rgba(22, 26, 22, 0.45);
 
-  --naglowek-wysokosc: 4.5rem;
+  --naglowek-wysokosc: 6rem;
   color-scheme: light;
 }
 
@@ -274,7 +274,7 @@ b {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
 }
 
-/* Tytuł podstrony: ozdobna kreska nad wyśrodkowanym nagłówkiem h1 */
+/* Tytuł podstrony: wyśrodkowany nagłówek h1 */
 .tytul-strony {
   margin-bottom: clamp(2rem, 5vw, 3.5rem);
   text-align: center;
@@ -285,10 +285,6 @@ b {
   margin: 0 auto;
   font-size: clamp(2.25rem, 4vw + 1rem, 4rem);
   color: var(--ciemny);
-}
-
-.tytul-strony .kreska {
-  margin-bottom: 1.25rem;
 }
 
 /* Ramka „Dla kogo? / Czas trwania: / Miejsce realizacji:” przy szkoleniach */
@@ -483,16 +479,6 @@ b {
   color: var(--braz);
   font-weight: 700;
   text-align: center;
-}
-
-/* ---------- Ozdobna linia (motyw odręcznej kreski z logo czasdolasu) ---------- */
-
-.kreska {
-  display: block;
-  width: min(14rem, 60%);
-  height: auto;
-  margin: 0 auto 1.5rem;
-  color: var(--zloto);
 }
 
 /* ---------- Pomocnicze ---------- */

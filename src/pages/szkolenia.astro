@@ -2,7 +2,6 @@
 import Uklad from '../layouts/Uklad.astro';
 import Zdjecie from '../components/Zdjecie.astro';
 import Marka from '../components/Marka.astro';
-import Kreska from '../components/Kreska.astro';
 import Ikona from '../components/Ikona.astro';
 import Formularz from '../components/Formularz.astro';
 import { strona } from '../data/strona';
@@ -68,7 +67,6 @@ const daneStrukturalne = kursy.map((kurs) => ({
   <section class="sekcja otwarcie" aria-labelledby="szkolenia-tytul">
     <div class="kontener">
       <header class="tytul-strony" data-pokaz>
-        <Kreska />
         <h1 id="szkolenia-tytul">SZKOLENIA STACJONARNE W TWOJEJ PLACÓWCE</h1>
       </header>
 
@@ -127,7 +125,6 @@ const daneStrukturalne = kursy.map((kurs) => ({
       </div>
 
       <div class="podejscie__haslo wycentrowane" data-pokaz>
-        <Kreska />
         <p class="haslo">ŁĄCZĘ RZETELNĄ MERYTORYKĘ Z PRAKTYKĄ SZKOLNĄ, UWAŻNOŚCIĄ NA LUDZI I DBAŁOŚCIĄ O PROCES</p>
       </div>
     </div>
@@ -309,7 +306,6 @@ const daneStrukturalne = kursy.map((kurs) => ({
   <!-- Formularz zapisu (dawniej wSection_73) -->
   <section class="sekcja zapisy" id="zapisy" aria-labelledby="zapisy-naglowek">
     <div class="kontener kontener--waski">
-      <Kreska />
       <h2 id="zapisy-naglowek" class="wycentrowane">Zapisz się na szkolenie</h2>
       <div class="karta karta--biala" data-pokaz>
         <Formularz
