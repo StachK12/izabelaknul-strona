@@ -1,5 +1,8 @@
 # Przekierowania 301 ze starych adresów (kreator WebWave) na nowe.
-/o-mnie-2                 /o-mnie                301
+# /o-mnie-2 pokazuje treść strony /o-mnie (bez przekierowania): stara strona
+# przekierowywała /o-mnie → /o-mnie-2 i przeglądarki to zapamiętały; przekierowanie
+# w drugą stronę zrobiłoby pętlę. Adres kanoniczny w kodzie strony to /o-mnie.
+/o-mnie-2                 /o-mnie.html           200
 /polityka-prywatnosci-2   /polityka-prywatnosci  301
 /sitemap                  /sitemap-index.xml     301
 # Stary adres mapy strony pokazuje nową mapę.

@@ -14,10 +14,10 @@ const sekcje = getHeadings().filter((naglowek) => naglowek.depth === 2);
   opis="Zasady przetwarzania danych osobowych i plików cookies na stronie izabelaknul.pl. Administrator: Izabela Knul. Cele, odbiorcy danych i Twoje uprawnienia."
   pasekKontaktu={false}
 >
-  <header class="sekcja sekcja--ciasna sekcja--piasek polityka-naglowek">
-    <div class="kontener kontener--waski wycentrowane" data-pokaz>
-      <h1>Polityka prywatności</h1>
+  <header class="sekcja sekcja--ciasna polityka-naglowek">
+    <div class="kontener kontener--waski tytul-strony" data-pokaz>
       <Kreska />
+      <h1>Polityka prywatności</h1>
     </div>
   </header>
 
@@ -46,14 +46,6 @@ const sekcje = getHeadings().filter((naglowek) => naglowek.depth === 2);
 </Uklad>
 
 <style>
-  .polityka-naglowek h1 {
-    margin-bottom: 0.35em;
-  }
-
-  .polityka-naglowek :global(.kreska) {
-    margin-bottom: 0;
-  }
-
   .polityka {
     padding-top: clamp(2rem, 5vw, 3.5rem);
   }

@@ -4,6 +4,10 @@ Strona Izabeli Knul (szkolenia, czasdolasu, mentoring). Jest zbudowana w [Astro]
 
 **Najważniejsze w skrócie:** każda zmiana zapisana w tym repozytorium na GitHubie (gałąź `main`) **sama publikuje się na stronie** po 1–3 minutach. Nie trzeba niczego instalować. Wszystko da się zrobić w przeglądarce, na stronie GitHuba.
 
+**Repozytorium:** https://github.com/StachK12/izabelaknul-strona
+
+> **Dostęp (jednorazowo):** żeby edytować pliki, Twoje konto GitHub musi mieć prawo zapisu. Właściciel repozytorium dodaje je w **Settings → Collaborators → Add people**, z rolą **Write**. Może też przenieść repozytorium na Twoje konto: **Settings → Transfer ownership**. Bez tego GitHub zamiast „Commit changes” pokaże „Propose changes”, a zmiana nie trafi na stronę.
+
 ---
 
 ## Spis treści
@@ -99,9 +103,17 @@ Wszystkie zdjęcia są w folderze **`zdjecia/`**. Strona sama:
 | `portret-czarny-stroj.jpg` | strona główna (przedstawienie) i „Dla szkoły” |
 | `stopka-pole.jpg` | tło stopki na każdej stronie |
 | `o-mnie-portret.jpg` | O mnie |
-| `czasdolasu-portret.jpg`, `czasdolasu-polana.jpg` | CZASdoLASU |
-| `szkolenie-*.jpg` | Dla szkoły (zdjęcia przy opisach szkoleń) i wydarzenia |
-| `dla-rodzicow-*.jpg` | Dla rodziców |
+| `czasdolasu-portret.jpg` | CZASdoLASU – zdjęcie na górze |
+| `czasdolasu-polana.jpg` | CZASdoLASU – polana obok formularza |
+| `szkolenie-ocenianie-ksztaltujace.jpg` | Dla szkoły – „Ocenianie kształtujące” |
+| `szkolenie-jedna-klasa.jpg` | Dla szkoły – „Jedna klasa – wiele potrzeb” oraz karta wydarzenia |
+| `szkolenie-sala.jpg` | Dla szkoły – „Nowa podstawa programowa…” (także obrazek przy udostępnianiu) |
+| `szkolenie-podroz-bohatera.jpg` | Dla szkoły – „Od wyzwania do zmiany” |
+| `dla-rodzicow-portret.jpg` | Dla rodziców – zdjęcie na górze |
+| `dla-rodzicow-paw.jpg` | Dla rodziców – przy „Jedna klasa – wiele potrzeb” |
+| `dla-rodzicow-brzoza.jpg`, `szkolenie-konferencja.jpg` | **obecnie nieużywane** – zapas do sekcji, które na starej stronie były ukryte |
+
+> **Nazwa musi być identyczna**, łącznie z końcówką `.jpg` pisaną małymi literami. Zdjęcie z telefonu często ma nazwę `….JPG` albo `….jpeg`. Przed wgraniem zmień ją na dokładnie taką jak w tabeli, inaczej wgrany plik nie zastąpi starego.
 
 ### Nowe zdjęcie pod nową nazwą
 
@@ -128,6 +140,9 @@ Każda podstrona to jeden plik w folderze `src/pages/`:
 | Mentoring | `src/pages/mentoring.astro` |
 | Kontakt | `src/pages/kontakt.astro` |
 | Polityka prywatności | `src/tresci/polityka-prywatnosci.md` (zwykły tekst) |
+| Stopka (podpis, „Sprawdź również:”) | `src/components/Stopka.astro` |
+| Formularze (etykiety pól, zgoda RODO, komunikaty po wysłaniu) | `src/components/Formularz.astro` |
+| Strona po wysłaniu formularza / strona błędu | `src/pages/dziekuje.astro` / `src/pages/404.astro` |
 
 **Dane wspólne dla wszystkich stron** (telefon, adres, Facebook, Instagram, LinkedIn, pozycje menu) są w jednym pliku: **`src/data/strona.ts`**. Zmiana tam zmienia je wszędzie.
 
@@ -150,7 +165,31 @@ Przydatne znaczniki:
 - `<Marka />` – nazwa *czasdo**lasu*** w barwach marki.
 - `<a href="/kontakt">tekst</a>` – link.
 
-Tytuł strony w Google i jej opis są na górze pliku, w atrybutach `tytul="…"` i `opis="…"`.
+Tytuł strony w Google i jej opis są na górze pliku, w atrybutach `tytul="…"` i `opis="…"` (na stronie Mentoring opis jest w linijce `const opis = '…'`).
+
+### Teksty na samej górze pliku (między liniami `---`)
+
+Niektóre strony trzymają część tekstów na górze pliku, między dwiema liniami `---`. Dotyczy to na przykład:
+- planu dnia i kart oferty na CZASdoLASU;
+- list szkoleń w formularzach.
+
+Wyglądają tak:
+
+```js
+{ godziny: '09:00–09:20', tytul: 'Powitanie i integracja przy kawie', opis: 'Spokojny początek dnia…' },
+```
+
+Zmieniaj tylko tekst **wewnątrz apostrofów** `'…'`. Nie usuwaj apostrofów ani przecinków. Jeśli w tekście potrzebujesz apostrofu, użyj znaku ’.
+
+### Ten sam opis szkolenia w kilku miejscach
+
+Opisy szkoleń powtarzają się na kilku stronach. Jeśli zmieniasz nazwę lub opis szkolenia, zmień go we wszystkich miejscach (szukaj nazwy przez Ctrl+F):
+- `src/pages/szkolenia.astro` – karty u góry, sekcja szkolenia, lista w formularzu i dane dla Google (na górze pliku);
+- `src/pages/czas-do-lasu.astro` – karty oferty i lista w formularzu;
+- `src/pages/dla-rodzicow.astro` – sekcja „Jedna klasa – wiele potrzeb”;
+- `wydarzenia.yaml` – tytuły wydarzeń.
+
+> Pisz zwykłe spacje. Twarde spacje po jednoliterowych słowach (a, i, o, u, w, z), które nie pozwalają im zostać same na końcu linii, strona dodaje sama przy publikacji.
 
 ---
 
@@ -185,7 +224,7 @@ Formularze (kontakt i zapisy na szkolenia) obsługuje **Netlify Forms**. Nie wym
 ### Krok 1. Projekt na Netlify (jednorazowo)
 
 1. Załóż konto na <https://app.netlify.com> („Sign up with GitHub”).
-2. Kliknij **Add new project → Import an existing project → GitHub** i zezwól Netlify na dostęp do repozytorium `izabelaknul-strona`.
+2. Kliknij **Add new project → Import an existing project → GitHub** i zezwól Netlify na dostęp do repozytorium `izabelaknul-strona`. Zgodę musi dać konto, które jest **właścicielem** repozytorium (albo zrób to po przeniesieniu repozytorium na swoje konto).
 3. Wybierz repozytorium i gałąź `main`. Ustawienia budowania wypełnią się same z pliku `netlify.toml`:
    - polecenie: `npm run build`;
    - folder: `dist`.
@@ -197,23 +236,25 @@ Formularze (kontakt i zapisy na szkolenia) obsługuje **Netlify Forms**. Nie wym
 
 ### Krok 2. Domena izabelaknul.pl
 
-> ⚠️ **Uwaga na pocztę.** Jeśli adres szkolenia@izabelaknul.pl działa, poczta jest na tej domenie. Przy zmianie ustawień domeny **nie ruszaj rekordów MX** (odpowiadają za pocztę). Najbezpieczniej jest zmienić tylko dwa rekordy, jak w wariancie A poniżej.
+> ⚠️ **Uwaga na pocztę.** Jeśli adres szkolenia@izabelaknul.pl działa, poczta jest na tej domenie. Przy zmianie ustawień domeny **nie ruszaj rekordów MX** (odpowiadają za pocztę). Najbezpieczniej jest zmienić tylko rekordy strony, jak w wariancie A poniżej.
+>
+> **Zanim zaczniesz:** sprawdź, kto prowadzi skrzynkę szkolenia@izabelaknul.pl. Zobacz, na jaki serwer wskazują rekordy MX w strefie DNS, i czy strefę DNS prowadzi WebWave. Jeśli poczta albo strefa DNS jest w WebWave, rezygnacja z abonamentu WebWave wyłączy pocztę. Wtedy najpierw przenieś pocztę (albo zostaw w WebWave samą pocztę) i strefę DNS do rejestratora domeny.
 
 1. W Netlify: **Domain management → Add a domain** i wpisz `izabelaknul.pl`. Netlify zapyta o `www.izabelaknul.pl`, więc dodaj obie wersje.
 2. Sprawdź, gdzie jest zarejestrowana domena i kto zarządza jej ustawieniami DNS. Może to być panel WebWave albo rejestrator, np. home.pl, nazwa.pl, OVH. Zaloguj się tam.
 3. **Wariant A (zalecany, poczta zostaje bez zmian):** w strefie DNS domeny ustaw:
-   - rekord **A** dla `izabelaknul.pl` (czasem oznaczany `@`) → `75.2.60.5`. Usuń inne rekordy A dla `@`, które wskazują na WebWave;
-   - rekord **CNAME** dla `www` → `<nazwa>.netlify.app` (Twój adres z kroku 1);
-   - pozostałe rekordy (zwłaszcza **MX** i **TXT**) zostaw bez zmian.
+   - rekord **A** dla `izabelaknul.pl` (czasem oznaczany `@`) → `75.2.60.5`. Usuń inne rekordy A i rekordy **AAAA** dla `@`, które wskazują na WebWave;
+   - rekord **CNAME** dla `www` → `<nazwa>.netlify.app` (Twój adres z kroku 1). Jeśli dla `www` jest już rekord A, AAAA albo inny CNAME, najpierw go usuń;
+   - pozostałe rekordy (zwłaszcza **MX**, **TXT**, a także CNAME typu `mail` czy `autodiscover`) zostaw bez zmian.
 
-   **Wariant B:** przenieś całe DNS do Netlify, zmieniając serwery nazw (nameservers) u rejestratora na te, które pokaże Netlify. Wtedy **przepisz najpierw w Netlify wszystkie rekordy MX i TXT** z obecnej strefy, inaczej poczta przestanie działać.
+   **Wariant B:** przenieś całe DNS do Netlify, zmieniając serwery nazw (nameservers) u rejestratora na te, które pokaże Netlify. Wtedy **przepisz najpierw w Netlify wszystkie rekordy** z obecnej strefy (MX, TXT, CNAME, SRV), inaczej poczta przestanie działać.
 4. Zmiany DNS rozchodzą się zwykle w ciągu kilku godzin (maksymalnie do 48 h). Netlify sam wystawi certyfikat HTTPS. W **Domain management → HTTPS** powinien pojawić się zielony status. W razie potrzeby kliknij **Verify DNS configuration**.
 5. Ustaw `izabelaknul.pl` jako **domenę główną** (Primary domain). Wersja z `www` będzie wtedy przekierowywać na nią.
 6. Sprawdź:
    - czy działa https://izabelaknul.pl;
-   - czy przekierowania starych adresów działają, np. https://izabelaknul.pl/o-mnie-2 powinien otworzyć /o-mnie;
+   - czy stare adresy działają, np. https://izabelaknul.pl/o-mnie-2 powinien pokazać stronę „O mnie”, a https://izabelaknul.pl/polityka-prywatnosci-2 przekierować na /polityka-prywatnosci;
    - czy formularz działa.
-7. Dopiero gdy wszystko działa, wyłącz stronę w WebWave i zrezygnuj z tamtejszego abonamentu. Uważaj, żeby nie zrezygnować z samej domeny, jeśli jest kupiona przez WebWave.
+7. Dopiero gdy wszystko działa, wyłącz stronę w WebWave i zrezygnuj z tamtejszego abonamentu. Uważaj, żeby nie zrezygnować z samej domeny ani z poczty, jeśli są w WebWave (patrz uwaga o poczcie wyżej).
 8. (Opcjonalnie) Dodaj stronę do **Google Search Console** i zgłoś mapę strony: `https://izabelaknul.pl/sitemap-index.xml`.
 
 ---

@@ -19,10 +19,16 @@ const PLIK = 'wydarzenia.yaml';
 function normalizujDate(wartosc: unknown, gdzie: string): string {
   if (wartosc instanceof Date) return wartosc.toISOString().slice(0, 10);
   const tekst = String(wartosc ?? '').trim();
-  let m = tekst.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-  if (m) return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`;
-  m = tekst.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
-  if (m) return `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+  const iso = tekst.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  const pl = tekst.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+  const [r, m, d] = iso ? [iso[1], iso[2], iso[3]] : pl ? [pl[3], pl[2], pl[1]] : [];
+  if (r && m && d) {
+    const data = new Date(Date.UTC(+r, +m - 1, +d));
+    if (data.getUTCFullYear() !== +r || data.getUTCMonth() !== +m - 1 || data.getUTCDate() !== +d) {
+      throw new Error(`${PLIK}: ${gdzie} ma datę, która nie istnieje: „${tekst}”. Sprawdź, czy dzień i miesiąc nie są zamienione (RRRR-MM-DD albo DD.MM.RRRR).`);
+    }
+    return `${r}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  }
   throw new Error(`${PLIK}: ${gdzie} ma niepoprawną datę „${tekst}”. Użyj formatu RRRR-MM-DD (np. 2026-11-28) albo DD.MM.RRRR (np. 28.11.2026).`);
 }
 

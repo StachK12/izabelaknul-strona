@@ -2,19 +2,22 @@
 import Uklad from '../layouts/Uklad.astro';
 import Formularz from '../components/Formularz.astro';
 import Ikona from '../components/Ikona.astro';
+import Kreska from '../components/Kreska.astro';
 import { strona } from '../data/strona';
 ---
 
 <Uklad
   tytul="Kontakt"
-  opis="Skontaktuj się z Izabelą Knul: telefon +48 602 67 77 07, formularz kontaktowy. Szkolenia dla szkół, czasdolasu, mentoring EduMastermind."
+  opis={`Skontaktuj się z Izabelą Knul: telefon ${strona.telefon}, formularz kontaktowy. Szkolenia dla szkół, czasdolasu, mentoring EduMastermind.`}
   pasekKontaktu={false}
 >
   <section class="sekcja">
+    <header class="kontener tytul-strony" data-pokaz>
+      <Kreska />
+      <h1>Skontaktuj się</h1>
+    </header>
     <div class="kontener dwie-kolumny kontakt">
       <div data-pokaz>
-        <span class="etykieta">Kontakt</span>
-        <h1>Skontaktuj się</h1>
         <ul class="kontakt__dane">
           <li>
             <Ikona nazwa="telefon" />

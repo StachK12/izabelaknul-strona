@@ -16,6 +16,11 @@
   --szarosc: #d1ccc5;
   --ciemny: #161a16;
   --bialy: #ffffff;
+  --linia: #efefef;
+  --blad: #8a2a1c;
+  --blad-tlo: #f8e6e3;
+  --sukces: #1f5a4c;
+  --sukces-tlo: #e7f2ee;
 
   --tekst: var(--ciemny);
   --tlo: var(--bialy);
@@ -267,6 +272,62 @@ b {
   display: grid;
   gap: clamp(1.25rem, 3vw, 2rem);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+/* Tytuł podstrony: ozdobna kreska nad wyśrodkowanym nagłówkiem h1 */
+.tytul-strony {
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+.tytul-strony h1 {
+  max-width: 24ch;
+  margin: 0 auto;
+  font-size: clamp(2.25rem, 4vw + 1rem, 4rem);
+  color: var(--ciemny);
+}
+
+.tytul-strony .kreska {
+  margin-bottom: 1.25rem;
+}
+
+/* Ramka „Dla kogo? / Czas trwania: / Miejsce realizacji:” przy szkoleniach */
+.metryczka {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--zaokraglenie);
+  background: var(--piasek);
+  container-type: inline-size;
+}
+
+.sekcja--piasek .metryczka {
+  background: var(--bialy);
+}
+
+.metryczka > div {
+  display: grid;
+  gap: 0.1rem 1rem;
+}
+
+@container (min-width: 28rem) {
+  .metryczka > div {
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+  }
+}
+
+.metryczka dt {
+  font-weight: 700;
+  color: var(--braz);
+}
+
+.metryczka dd {
+  margin: 0;
+}
+
+.metryczka a {
+  text-decoration-color: var(--zloto);
 }
 
 /* ---------- Przyciski ---------- */

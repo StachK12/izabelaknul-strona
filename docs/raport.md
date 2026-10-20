@@ -54,7 +54,10 @@ Szczegóły:
 - mapa strony `sitemap-index.xml` (stary adres `/sitemap.xml` też działa), `robots.txt`;
 - dane strukturalne: Person, EducationalOrganization i WebPage, na stronie szkoleń także Course.
 
-**Przekierowania 301:** `/o-mnie-2` → `/o-mnie`, `/polityka-prywatnosci-2` → `/polityka-prywatnosci`, `/sitemap` → mapa strony. Pozostałe adresy się nie zmieniły.
+**Stare adresy:**
+- `/polityka-prywatnosci-2` → `/polityka-prywatnosci` i `/sitemap` → mapa strony – przekierowania 301;
+- `/o-mnie-2` pokazuje treść strony „O mnie” **bez przekierowania**. To świadomy wyjątek: stara strona przekierowywała `/o-mnie` → `/o-mnie-2` na stałe i przeglądarki to zapamiętały, więc przekierowanie w drugą stronę zapętliłoby się u stałych odwiedzających. Google i tak traktuje `/o-mnie` jako główny adres (znacznik canonical);
+- pozostałe adresy się nie zmieniły.
 
 **Dostępność (WCAG 2.1 AA):**
 - test axe-core bez błędów na wszystkich stronach, na telefonie i komputerze;
@@ -67,6 +70,18 @@ Szczegóły:
 - mapa Google ładuje się dopiero po kliknięciu.
 
 **Polityka prywatności:** przeniesiona 1:1, w łatwym do edycji pliku `src/tresci/polityka-prywatnosci.md`.
+
+**Niezależny przegląd:** 4 recenzentów sprawdziło stronę pod kątem wyglądu, dostępności, SEO z Netlify i łatwości utrzymania. Poprawiono wszystkie potwierdzone zgłoszenia, między innymi:
+- **Przekierowania:** pętla przekierowań dla `/o-mnie-2`.
+- **Formularze:** błędy opisane przy konkretnych polach.
+- **Nagłówek i menu:** rozmycie tła nagłówka, które gubił minifikator CSS; menu na telefonie zamyka się po wyjściu z niego klawiaturą.
+- **Druk:** puste strony przy drukowaniu.
+- **Zdjęcia i układ:** nieostre zdjęcie w banerze na telefonach, jednolite tytuły podstron, karty na tabletach.
+- **Wydarzenia:** sprawdzanie, czy data wydarzenia istnieje.
+- **Edycja przez Izabelę:**
+  - twarde spacje po jednoliterowych słowach dodają się same, więc teksty da się wyszukać przez Ctrl+F;
+  - dane kontaktowe są wpisane tylko w jednym pliku;
+  - README wyjaśnia dostęp do repozytorium, nazwy zdjęć i bezpieczne przenoszenie poczty.
 
 ## Czego brakuje
 

@@ -33,6 +33,7 @@ const {
 } = Astro.props;
 
 const id = (pole: string) => `${nazwa}-${pole}`;
+import { strona } from '../data/strona';
 ---
 
 <form
@@ -44,6 +45,7 @@ const id = (pole: string) => `${nazwa}-${pole}`;
   netlify-honeypot="bot-field"
   data-formularz
   data-sukces={komunikatSukcesu}
+  data-telefon={strona.telefon}
 >
   <input type="hidden" name="form-name" value={nazwa} />
   <input type="hidden" name="subject" value={temat} />
@@ -125,9 +127,8 @@ const id = (pole: string) => `${nazwa}-${pole}`;
 
 <script>
   const KOMUNIKATY = {
-    sukces: 'Dziękuję, wiadomość została wysłana.',
     popraw: 'Popraw zaznaczone pola: ',
-    blad: 'Nie udało się wysłać wiadomości. Spróbuj ponownie albo zadzwoń: +48 602 67 77 07.',
+    blad: 'Nie udało się wysłać wiadomości. Spróbuj ponownie albo zadzwoń: ',
   };
 
   type Pole = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -210,9 +211,9 @@ const id = (pole: string) => `${nazwa}-${pole}`;
         });
         if (!odpowiedz.ok) throw new Error(String(odpowiedz.status));
         formularz.reset();
-        pokaz(formularz, formularz.dataset.sukces || KOMUNIKATY.sukces, 'sukces');
+        pokaz(formularz, formularz.dataset.sukces ?? '', 'sukces');
       } catch {
-        pokaz(formularz, KOMUNIKATY.blad, 'blad');
+        pokaz(formularz, `${KOMUNIKATY.blad}${formularz.dataset.telefon}.`, 'blad');
       } finally {
         if (przycisk) przycisk.disabled = false;
       }
@@ -308,13 +309,13 @@ const id = (pole: string) => `${nazwa}-${pole}`;
   }
 
   .pole [aria-invalid='true'] {
-    border-color: #8a2a1c;
+    border-color: var(--blad);
     border-width: 2px;
   }
 
   .pole :global(.pole__blad) {
     margin: 0.4rem 0 0;
-    color: #8a2a1c;
+    color: var(--blad);
     font-size: 0.9375rem;
     font-weight: 700;
   }
@@ -366,12 +367,12 @@ const id = (pole: string) => `${nazwa}-${pole}`;
   }
 
   .formularz__komunikat[data-rodzaj='sukces'] {
-    background: #e7f2ee;
-    color: #1f5a4c;
+    background: var(--sukces-tlo);
+    color: var(--sukces);
   }
 
   .formularz__komunikat[data-rodzaj='blad'] {
-    background: #f8e6e3;
-    color: #8a2a1c;
+    background: var(--blad-tlo);
+    color: var(--blad);
   }
 </style>

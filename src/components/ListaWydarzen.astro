@@ -24,7 +24,7 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
   <ul class="wydarzenia__lista">
     {
       wydarzenia.map((w) => (
-        <li class="wydarzenie" data-koniec={w.daty[w.daty.length - 1]} data-pokaz>
+        <li class:list={['wydarzenie', !w.zdjecie && 'wydarzenie--bez-zdjecia']} data-koniec={w.daty[w.daty.length - 1]} data-pokaz>
           {w.zdjecie && (
             <Zdjecie plik={w.zdjecie} alt="" sizes="(min-width: 48rem) 16rem, 100vw" class="wydarzenie__zdjecie" proporcje="3 / 2" />
           )}
@@ -57,7 +57,7 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
                 </a>
               )}
               {zewnetrzny(w.link_zapisu ?? domyslnyZapis) ? (
-                <a class="przycisk" href={w.link_zapisu} target="_blank" rel="noopener">
+                <a class="przycisk" href={w.link_zapisu ?? domyslnyZapis} target="_blank" rel="noopener">
                   Zapisz się<span class="sr-only"> na „{w.tytul}” (otwiera się w nowej karcie)</span>
                 </a>
               ) : (
@@ -113,6 +113,10 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
     .wydarzenie {
       grid-template-columns: 16rem 1fr;
       align-items: center;
+    }
+
+    .wydarzenie--bez-zdjecia {
+      grid-template-columns: 1fr;
     }
   }
 

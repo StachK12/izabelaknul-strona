@@ -9,20 +9,21 @@ import { strona } from '../data/strona';
 
 // Mapa Google ładuje się dopiero po kliknięciu „Pokaż mapę” (do tego czasu
 // strona nie wysyła żadnego zapytania do Google).
-const mapaAdres = 'https://www.google.com/maps?q=Petronel%C3%B3w%2036B%2C%2098-113%20Buczek&output=embed';
-const mapaTytul = 'Mapa dojazdu: Petronelów 36B, 98-113 Buczek';
+const pelnyAdres = `${strona.adres}, ${strona.kodPocztowy} ${strona.miejscowosc}`;
+const mapaAdres = `https://www.google.com/maps?q=${encodeURIComponent(pelnyAdres)}&output=embed`;
+const mapaTytul = `Mapa dojazdu: ${pelnyAdres}`;
 ---
 
 <Uklad
   tytul="Najbliższe wydarzenia"
-  opis="Najbliższe wydarzenia w czasdolasu. Szkolenia outdoorowe odbywają się pod adresem Petronelów 36B. Zapisz się na szkolenie stacjonarne lub outdoorowe."
+  opis={`Najbliższe wydarzenia w czasdolasu. Szkolenia outdoorowe odbywają się pod adresem ${strona.adres}. Zapisz się na szkolenie stacjonarne lub outdoorowe.`}
   zdjecieOg="szkolenie-jedna-klasa.jpg"
   pasekKontaktu={false}
 >
   <!-- Tytuł i lista wydarzeń (z pliku wydarzenia.yaml) -->
   <section class="sekcja wydarzenia-strona">
     <div class="kontener wydarzenia-strona__kontener">
-      <header class="wycentrowane wydarzenia-strona__naglowek" data-pokaz>
+      <header class="tytul-strony" data-pokaz>
         <Kreska />
         <h1>Najbliższe wydarzenia w <Marka /></h1>
       </header>
@@ -37,7 +38,7 @@ const mapaTytul = 'Mapa dojazdu: Petronelów 36B, 98-113 Buczek';
     <div class="kontener wycentrowane">
       <div data-pokaz>
         <h2 id="miejsce-naglowek" class="miejsce__naglowek">Szkolenia outdoorowe w <Marka /> odbywają się pod adresem</h2>
-        <p class="miejsce__adres"><Ikona nazwa="pinezka" /><span>Petronelów 36B</span></p>
+        <p class="miejsce__adres"><Ikona nazwa="pinezka" /><span>{strona.adres}</span></p>
       </div>
 
       <div class="mapa" data-mapa data-src={mapaAdres} data-tytul={mapaTytul} data-pokaz style="--opoznienie: 0.1s">
@@ -46,9 +47,9 @@ const mapaTytul = 'Mapa dojazdu: Petronelów 36B, 98-113 Buczek';
             <rect width="800" height="460" fill="#efe7d9" />
             <path d="M-20 120c120 30 200-40 330-10s210 120 520 60" fill="none" stroke="#e3d6c0" stroke-width="2" />
             <path d="M-20 360c140-40 260 10 380-20s250-110 460-90" fill="none" stroke="#e3d6c0" stroke-width="2" />
-            <ellipse cx="150" cy="300" rx="120" ry="70" fill="#419b87" fill-opacity="0.13" />
-            <ellipse cx="660" cy="110" rx="140" ry="80" fill="#419b87" fill-opacity="0.12" />
-            <ellipse cx="610" cy="380" rx="90" ry="50" fill="#419b87" fill-opacity="0.1" />
+            <ellipse cx="150" cy="300" rx="120" ry="70" fill="#c7a879" fill-opacity="0.13" />
+            <ellipse cx="660" cy="110" rx="140" ry="80" fill="#c7a879" fill-opacity="0.12" />
+            <ellipse cx="610" cy="380" rx="90" ry="50" fill="#c7a879" fill-opacity="0.1" />
             <path d="M-20 250c160-20 260-60 420-40s280 40 420-10" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" />
             <path d="M400 -20c-20 120 30 200 0 260s-40 160-20 240" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" />
             <path d="M120 -20c30 90 10 170 60 240" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" />
@@ -113,21 +114,6 @@ const mapaTytul = 'Mapa dojazdu: Petronelów 36B, 98-113 Buczek';
 <style>
   .wydarzenia-strona__kontener {
     max-width: calc(60rem + 2 * var(--margines));
-  }
-
-  .wydarzenia-strona__naglowek {
-    margin-bottom: clamp(2rem, 5vw, 3.5rem);
-  }
-
-  .wydarzenia-strona__naglowek h1 {
-    margin-bottom: 0;
-  }
-
-  .wydarzenia-strona :global(.wydarzenia__brak) {
-    max-width: 44rem;
-    margin-inline: auto;
-    padding: clamp(1.5rem, 4vw, 2.25rem);
-    text-wrap: balance;
   }
 
   .miejsce__naglowek {

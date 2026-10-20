@@ -60,8 +60,6 @@ const oferta = [
   },
 ];
 
-// Spójniki i przyimki jednoliterowe nie zostają na końcu wiersza.
-const sierotki = (tekst: string) => tekst.replace(/(?<=^|[\s„(])([aiouwzAIOUWZ])\s/g, '$1\u00a0');
 
 const szkolenia = [
   'Ocenianie kształtujące',
@@ -82,7 +80,7 @@ const szkolenia = [
     <div class="kontener">
       <div class="dwie-kolumny wstep__uklad">
         <div class="wstep__tekst" data-pokaz>
-          <p class="wstep__prowadzenie">Stworzyłam <strong><Marka /></strong>, bo wiem, jak bardzo nauczyciele potrzebują dziś przestrzeni, która naprawdę wzmacnia, a&nbsp;nie tylko „dokłada treści”.</p>
+          <p class="wstep__prowadzenie">Stworzyłam <strong><Marka /></strong>, bo wiem, jak bardzo nauczyciele potrzebują dziś przestrzeni, która naprawdę wzmacnia, a nie tylko „dokłada treści”.</p>
         </div>
 
         <div data-pokaz style="--opoznienie: 0.15s">
@@ -96,8 +94,8 @@ const szkolenia = [
         </div>
 
         <div class="tylko-telefon wstep__telefon">
-          <p><strong><Marka /></strong> to outdoorowa przestrzeń rozwojowo‑szkoleniowa dla nauczycieli i&nbsp;dyrektorów. Tu pracujemy nad energią i&nbsp;sensem zawodu, wypaleniem, a&nbsp;jednocześnie solidnie dotykamy kluczowych trendów współczesnej edukacji.</p>
-          <p>Zamiast zamkniętej sali i&nbsp;twardych krzeseł proponuję pracę w&nbsp;naturze – w&nbsp;ruchu, oddechu, ciszy i&nbsp;uważnej obecności.</p>
+          <p><strong><Marka /></strong> to outdoorowa przestrzeń rozwojowo‑szkoleniowa dla nauczycieli i dyrektorów. Tu pracujemy nad energią i sensem zawodu, wypaleniem, a jednocześnie solidnie dotykamy kluczowych trendów współczesnej edukacji.</p>
+          <p>Zamiast zamkniętej sali i twardych krzeseł proponuję pracę w naturze – w ruchu, oddechu, ciszy i uważnej obecności.</p>
         </div>
       </div>
 
@@ -129,13 +127,13 @@ const szkolenia = [
       <header class="wycentrowane" data-pokaz>
         <Kreska />
         <h2 id="grupa-naglowek" class="haslo grupa__naglowek">KAMERALNA GRUPA!</h2>
-        <p class="haslo grupa__podtytul">Trzy godziny pracy dają efekt, na który w&nbsp;dużym zespole potrzeba całego dnia.</p>
+        <p class="haslo grupa__podtytul">Trzy godziny pracy dają efekt, na który w dużym zespole potrzeba całego dnia.</p>
       </header>
 
       <ul class="lista grupa__lista">
-        <li data-pokaz>PRACUJEMY W MAŁYCH, KAMERALNYCH GRUPACH – 6–7 OSÓB – DZIĘKI CZEMU KAŻDA OSOBA JEST ZAUWAŻONA I&nbsp;NAPRAWDĘ WYSŁUCHANA.</li>
-        <li data-pokaz style="--opoznienie: 0.1s">JEST TU CZAS I&nbsp;PRZESTRZEŃ NA GŁĘBOKĄ, INDYWIDUALNĄ PRACĘ, DOSTOSOWANĄ DO TWOICH REALNYCH POTRZEB.</li>
-        <li data-pokaz style="--opoznienie: 0.2s">WYCHODZISZ Z&nbsp;GOTOWYM MATERIAŁEM, KONKRETNYM PLANEM I&nbsp;ROZWIĄZANIAMI, KTÓRE MOŻESZ OD RAZU WYKORZYSTAĆ DLA SIEBIE I&nbsp;SWOICH UCZNIÓW.</li>
+        <li data-pokaz>PRACUJEMY W MAŁYCH, KAMERALNYCH GRUPACH – 6–7 OSÓB – DZIĘKI CZEMU KAŻDA OSOBA JEST ZAUWAŻONA I NAPRAWDĘ WYSŁUCHANA.</li>
+        <li data-pokaz style="--opoznienie: 0.1s">JEST TU CZAS I PRZESTRZEŃ NA GŁĘBOKĄ, INDYWIDUALNĄ PRACĘ, DOSTOSOWANĄ DO TWOICH REALNYCH POTRZEB.</li>
+        <li data-pokaz style="--opoznienie: 0.2s">WYCHODZISZ Z GOTOWYM MATERIAŁEM, KONKRETNYM PLANEM I ROZWIĄZANIAMI, KTÓRE MOŻESZ OD RAZU WYKORZYSTAĆ DLA SIEBIE I SWOICH UCZNIÓW.</li>
       </ul>
     </div>
   </section>
@@ -143,14 +141,14 @@ const szkolenia = [
   <!-- Plan dnia -->
   <section class="sekcja plan" aria-labelledby="plan-naglowek">
     <div class="kontener kontener--waski">
-      <h2 id="plan-naglowek" class="wycentrowane plan__naglowek" data-pokaz>Jak wygląda dzień w&nbsp;<Marka />?</h2>
+      <h2 id="plan-naglowek" class="wycentrowane plan__naglowek" data-pokaz>Jak wygląda dzień w <Marka />?</h2>
 
       <ol class="plan__lista">
         {
           planDnia.map((etap, i) => (
             <li class="plan__etap" data-pokaz style={`--opoznienie: ${i * 0.05}s`}>
-              <h3 class="plan__tytul"><span class="plan__godziny">{etap.godziny}</span> <span class="plan__kreska" aria-hidden="true">|</span> {sierotki(etap.tytul)}</h3>
-              <p class="plan__opis">{sierotki(etap.opis)}</p>
+              <h3 class="plan__tytul"><span class="plan__godziny">{etap.godziny}</span> <span class="plan__kreska" aria-hidden="true">|</span> {etap.tytul}</h3>
+              <p class="plan__opis">{etap.opis}</p>
             </li>
           ))
         }
@@ -163,14 +161,14 @@ const szkolenia = [
     <div class="kontener">
       <div class="wycentrowane spacer__hasla" data-pokaz>
         <Kreska />
-        <p class="haslo spacer__haslo">KAŻDE SZKOLENIE W&nbsp;<Marka czasdo="CZASDO" lasu="LASU" /> ZACZYNAMY I&nbsp;KOŃCZYMY SPACEREM – NIEZALEŻNIE OD POGODY.</p>
-        <p class="haslo spacer__haslo">KONTAKT Z&nbsp;NATURĄ JEST FUNDAMENTEM DOŚWIADCZENIA EDUKACYJNEGO, KTÓREGO JESTEŚ CZĘŚCIĄ I&nbsp;WAŻNYM ELEMENTEM CAŁEGO PROCESU.</p>
+        <p class="haslo spacer__haslo">KAŻDE SZKOLENIE W <Marka czasdo="CZASDO" lasu="LASU" /> ZACZYNAMY I KOŃCZYMY SPACEREM – NIEZALEŻNIE OD POGODY.</p>
+        <p class="haslo spacer__haslo">KONTAKT Z NATURĄ JEST FUNDAMENTEM DOŚWIADCZENIA EDUKACYJNEGO, KTÓREGO JESTEŚ CZĘŚCIĄ I WAŻNYM ELEMENTEM CAŁEGO PROCESU.</p>
       </div>
 
       <div class="spacer__karty">
-        <p class="karta karta--biala" data-pokaz><strong><em>Deszcz?</em></strong> – merytoryczna i&nbsp;warsztatowa część dnia przenosi się do pomieszczenia.</p>
-        <p class="karta karta--biala" data-pokaz style="--opoznienie: 0.1s"><strong>Ja –</strong> dbam o&nbsp;jakość i&nbsp;poziom treści, proces oraz bezpieczne ramy pracy.</p>
-        <p class="karta karta--biala" data-pokaz style="--opoznienie: 0.2s"><strong>Ty –</strong> zadbaj o&nbsp;strój, obuwie i&nbsp;akcesoria dopasowane do warunków pogodowych, tak aby spacer w&nbsp;lesie był dla Ciebie swobodny i&nbsp;komfortowy.</p>
+        <p class="karta karta--biala" data-pokaz><strong><em>Deszcz?</em></strong> – merytoryczna i warsztatowa część dnia przenosi się do pomieszczenia.</p>
+        <p class="karta karta--biala" data-pokaz style="--opoznienie: 0.1s"><strong>Ja –</strong> dbam o jakość i poziom treści, proces oraz bezpieczne ramy pracy.</p>
+        <p class="karta karta--biala" data-pokaz style="--opoznienie: 0.2s"><strong>Ty –</strong> zadbaj o strój, obuwie i akcesoria dopasowane do warunków pogodowych, tak aby spacer w lesie był dla Ciebie swobodny i komfortowy.</p>
       </div>
     </div>
   </section>
@@ -185,7 +183,7 @@ const szkolenia = [
           oferta.map((karta, i) => (
             <article class="karta" data-pokaz style={`--opoznienie: ${i * 0.1}s`}>
               <h3>{karta.tytul}</h3>
-              <p>{sierotki(karta.opis)}</p>
+              <p>{karta.opis}</p>
               <div class="przyciski">
                 <a class="przycisk przycisk--obrys" href={karta.adres}>Dowiedz się więcej<span class="sr-only"> {karta.kontekst}</span><Ikona nazwa="strzalka" /></a>
               </div>
@@ -233,8 +231,8 @@ const szkolenia = [
         sizes="(min-width: 48rem) 34rem, calc(100vw - 2.5rem)"
         class="zakonczenie__logo"
       />
-      <p><em>...to miejsce, z&nbsp;którego dobra energia płynie dalej do uczniów.</em></p>
-      <p><em>Bo środowisko, w&nbsp;którym uczymy i&nbsp;uczymy się, ma realną moc kształtowania relacji, uważności i&nbsp;sprawczości.</em></p>
+      <p><em>...to miejsce, z którego dobra energia płynie dalej do uczniów.</em></p>
+      <p><em>Bo środowisko, w którym uczymy i uczymy się, ma realną moc kształtowania relacji, uważności i sprawczości.</em></p>
     </div>
   </section>
 </Uklad>
@@ -474,6 +472,12 @@ const szkolenia = [
   .oferta__karty h3 {
     overflow-wrap: anywhere;
     hyphens: manual;
+  }
+
+  @media (min-width: 40rem) and (max-width: 63.99rem) {
+    .oferta__karty > :last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
   }
 
   @media (min-width: 64rem) {

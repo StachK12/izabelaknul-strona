@@ -13,9 +13,9 @@ import Ikona from '../components/Ikona.astro';
   <!-- Tytuł strony i przedstawienie -->
   <section class="sekcja o-mnie" aria-labelledby="o-mnie-tytul">
     <div class="kontener">
-      <header class="o-mnie__tytul wycentrowane" data-pokaz>
-        <h1 id="o-mnie-tytul">O mnie</h1>
+      <header class="tytul-strony" data-pokaz>
         <Kreska />
+        <h1 id="o-mnie-tytul">O mnie</h1>
       </header>
 
       <div class="przedstawienie">
@@ -31,8 +31,8 @@ import Ikona from '../components/Ikona.astro';
         </div>
 
         <div class="przedstawienie__tekst" data-pokaz style="--opoznienie: 0.1s">
-          <p>Jestem pedagożką, edukatorką, trenerką. Moje doświadczenie ukształtowała praca z&nbsp;dziećmi, nauczycielami i&nbsp;rodzicami oraz przywilej&nbsp;– tak, przywilej&nbsp;– bycia dyrektorką szkoły (publicznej i&nbsp;niepublicznej) odpowiedzialną za ludzi, relacje i&nbsp;procesy.</p>
-          <p>Dziś prowadzę szkolenia i&nbsp;warsztaty dla nauczycieli i&nbsp;dyrektorów, podczas których <span class="wyr">łączę</span> ich <span class="wyr">rozwój zawodowy z&nbsp;rozwojem osobistym</span>. Pokazuję, w&nbsp;jaki sposób planować pracę, aby mieć poczucie wpływu i&nbsp;sprawczości. Uczę działania w&nbsp;oparciu o&nbsp;priorytety i&nbsp;pokazuję, że <span class="wyr">dbanie o&nbsp;siebie nie jest dodatkiem</span> do pracy nauczyciela i&nbsp;dyrektora, ale <span class="wyr">podstawą jej jakości.</span></p>
+          <p>Jestem pedagożką, edukatorką, trenerką. Moje doświadczenie ukształtowała praca z dziećmi, nauczycielami i rodzicami oraz przywilej – tak, przywilej – bycia dyrektorką szkoły (publicznej i niepublicznej) odpowiedzialną za ludzi, relacje i procesy.</p>
+          <p>Dziś prowadzę szkolenia i warsztaty dla nauczycieli i dyrektorów, podczas których <span class="wyr">łączę</span> ich <span class="wyr">rozwój zawodowy z rozwojem osobistym</span>. Pokazuję, w jaki sposób planować pracę, aby mieć poczucie wpływu i sprawczości. Uczę działania w oparciu o priorytety i pokazuję, że <span class="wyr">dbanie o siebie nie jest dodatkiem</span> do pracy nauczyciela i dyrektora, ale <span class="wyr">podstawą jej jakości.</span></p>
         </div>
       </div>
     </div>
@@ -43,8 +43,8 @@ import Ikona from '../components/Ikona.astro';
     <div class="kontener kontener--waski">
       <ul class="lista kwalifikacje__lista">
         <li data-pokaz>Jestem magistrem Pedagogiki wieku dziecięcego. Ukończyłam studia podyplomowe Zarządzanie Oświatą, Studia Podyplomowe Liderów Oświaty (SPLO) oraz Kurs Zarządzania Polskimi Szkołami za Granicą.</li>
-        <li data-pokaz style="--opoznienie: 0.1s">Posiadam kwalifikacje trenerskie&nbsp;– jestem trenerką biznesu, zwinnej zmiany gry coachingowej Heros Navigares®&nbsp;– Podróż Bohatera®.</li>
-        <li data-pokaz style="--opoznienie: 0.2s">Mam przygotowanie w&nbsp;zakresie <span class="wyr">prowadzenia procesów wspomagania rozwoju szkół i&nbsp;przedszkoli</span>. Stale rozwijam swoje kompetencje, uczestnicząc w&nbsp;szkoleniach dotyczących szeroko pojętej edukacji.</li>
+        <li data-pokaz style="--opoznienie: 0.1s">Posiadam kwalifikacje trenerskie – jestem trenerką biznesu, zwinnej zmiany gry coachingowej Heros Navigares® – Podróż Bohatera®.</li>
+        <li data-pokaz style="--opoznienie: 0.2s">Mam przygotowanie w zakresie <span class="wyr">prowadzenia procesów wspomagania rozwoju szkół i przedszkoli</span>. Stale rozwijam swoje kompetencje, uczestnicząc w szkoleniach dotyczących szeroko pojętej edukacji.</li>
       </ul>
     </div>
   </section>
@@ -54,7 +54,7 @@ import Ikona from '../components/Ikona.astro';
     <div class="kontener wycentrowane">
       <Kreska />
       <h2 id="motto-haslo" class="haslo" data-pokaz>ŚRODOWISKO JEST TRZECIM NAUCZYCIELEM</h2>
-      <p class="motto__podtytul tekst" data-pokaz style="--opoznienie: 0.1s"><em>zaproś się do przestrzeni, w&nbsp;której relacje, proces i&nbsp;jakość naprawdę mają znaczenie</em></p>
+      <p class="motto__podtytul tekst" data-pokaz style="--opoznienie: 0.1s"><em>zaproś się do przestrzeni, w której relacje, proces i jakość naprawdę mają znaczenie</em></p>
       <div class="przyciski" data-pokaz style="--opoznienie: 0.2s">
         <a class="przycisk" href="/#oferta">Zobacz ofertę<Ikona nazwa="strzalka" /></a>
         <a class="przycisk przycisk--obrys" href="/kontakt">Skontaktuj się</a>
@@ -64,15 +64,6 @@ import Ikona from '../components/Ikona.astro';
 </Uklad>
 
 <style>
-  .o-mnie__tytul h1 {
-    font-size: clamp(2.75rem, 6vw + 1rem, 5.25rem);
-    margin-bottom: 0.25em;
-  }
-
-  .o-mnie__tytul :global(.kreska) {
-    margin-bottom: 0;
-  }
-
   /* Telefon: nagłówek → zdjęcie → tekst (jak na obecnej stronie).
      Komputer: nagłówek i tekst po lewej, portret po prawej. */
   .przedstawienie {
