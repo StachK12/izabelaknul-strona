@@ -20,6 +20,7 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
 ---
 
 <div class="wydarzenia" data-wydarzenia>
+  {wydarzenia.length > 0 && (
   <ul class="wydarzenia__lista">
     {
       wydarzenia.map((w) => (
@@ -70,6 +71,7 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
       ))
     }
   </ul>
+  )}
 
   <p class="wydarzenia__brak" data-brak hidden={wydarzenia.length > 0}>
     Obecnie nie ma zaplanowanych terminów. Nowe wydarzenia pojawią się tutaj wkrótce – zapraszam do kontaktu.
@@ -84,6 +86,7 @@ const zewnetrzny = (adres: string) => /^https?:\/\//.test(adres);
       if ((el.dataset.koniec ?? '') < dzis) el.remove();
     });
     if (!lista.querySelector('[data-koniec]')) {
+      lista.querySelector('ul')?.remove();
       lista.querySelector<HTMLElement>('[data-brak]')?.removeAttribute('hidden');
     }
   });

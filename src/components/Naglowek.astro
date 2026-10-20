@@ -60,6 +60,16 @@ const aktywna = (adres: string) => sciezka === adres;
   });
 
   menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => ustaw(false)));
+
+  // Menu zamyka się, gdy fokus klawiatury albo kliknięcie wyjdzie poza nagłówek.
+  const naglowek = document.querySelector<HTMLElement>('.naglowek');
+  naglowek?.addEventListener('focusout', (zdarzenie) => {
+    const cel = zdarzenie.relatedTarget as Node | null;
+    if (przelacznik?.getAttribute('aria-expanded') === 'true' && cel && !naglowek.contains(cel)) ustaw(false);
+  });
+  document.addEventListener('pointerdown', (zdarzenie) => {
+    if (przelacznik?.getAttribute('aria-expanded') === 'true' && !naglowek?.contains(zdarzenie.target as Node)) ustaw(false);
+  });
   window.matchMedia('(min-width: 75rem)').addEventListener('change', () => ustaw(false));
 </script>
 

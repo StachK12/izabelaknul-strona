@@ -52,7 +52,7 @@ const id = (pole: string) => `${nazwa}-${pole}`;
     <label>Nie wypełniaj tego pola: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
   </p>
 
-  <p class="formularz__info">Pola oznaczone <span aria-hidden="true">*</span> są wymagane.</p>
+  <p class="formularz__info">Pola oznaczone gwiazdką (*) są wymagane.</p>
 
   <div class="formularz__siatka">
     <div class="pole">
@@ -73,7 +73,7 @@ const id = (pole: string) => `${nazwa}-${pole}`;
         type="tel"
         autocomplete="tel"
         inputmode="tel"
-        pattern="[0-9 +()\-]{7,20}"
+        pattern="[0-9 +\(\)\-]{7,20}"
         title="Wpisz numer telefonu, np. 602 677 707"
       />
     </div>
@@ -126,28 +126,75 @@ const id = (pole: string) => `${nazwa}-${pole}`;
 <script>
   const KOMUNIKATY = {
     sukces: 'Dziękuję, wiadomość została wysłana.',
-    brakPol: 'Proszę wypełnić wszystkie wymagane pola.',
+    popraw: 'Popraw zaznaczone pola: ',
     blad: 'Nie udało się wysłać wiadomości. Spróbuj ponownie albo zadzwoń: +48 602 67 77 07.',
   };
 
-  const pokaz = (formularz: HTMLFormElement, tekst: string, rodzaj: 'sukces' | 'blad') => {
+  type Pole = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+  const pokaz = (formularz: HTMLFormElement, tekst: string, rodzaj: 'sukces' | 'blad', ustawFokus = true) => {
     const komunikat = formularz.querySelector<HTMLElement>('.formularz__komunikat');
     if (!komunikat) return;
     komunikat.textContent = tekst;
     komunikat.dataset.rodzaj = rodzaj;
     komunikat.hidden = false;
-    komunikat.focus();
+    if (ustawFokus) komunikat.focus();
+  };
+
+  // Treść błędu dla konkretnego pola
+  const opisBledu = (pole: Pole) => {
+    const v = pole.validity;
+    if (pole instanceof HTMLInputElement && pole.type === 'checkbox') return 'Zaznacz zgodę, aby wysłać formularz.';
+    if (v.valueMissing) return 'To pole jest wymagane.';
+    if (v.typeMismatch && pole.type === 'email') return 'Wpisz poprawny adres e-mail, np. imie@przyklad.pl.';
+    if (v.patternMismatch && pole.type === 'tel') return 'Wpisz numer telefonu, np. 602 677 707.';
+    return 'Sprawdź to pole.';
+  };
+
+  const nazwaPola = (pole: Pole) => {
+    if (pole instanceof HTMLInputElement && pole.type === 'checkbox') return 'Zgoda';
+    const etykieta = pole.labels?.[0]?.textContent ?? pole.name;
+    return etykieta.replace('*', '').trim();
+  };
+
+  const usunBlad = (pole: Pole) => {
+    pole.removeAttribute('aria-invalid');
+    pole.removeAttribute('aria-describedby');
+    pole.closest('.pole')?.querySelector('.pole__blad')?.remove();
+  };
+
+  const pokazBlad = (pole: Pole) => {
+    usunBlad(pole);
+    const blad = document.createElement('p');
+    blad.className = 'pole__blad';
+    blad.id = `${pole.id}-blad`;
+    blad.textContent = opisBledu(pole);
+    pole.closest('.pole')?.append(blad);
+    pole.setAttribute('aria-invalid', 'true');
+    pole.setAttribute('aria-describedby', blad.id);
   };
 
   document.querySelectorAll<HTMLFormElement>('form[data-formularz]').forEach((formularz) => {
     formularz.noValidate = true;
+    const pola = [...formularz.querySelectorAll<Pole>('.pole input, .pole select, .pole textarea')];
+
+    // Błąd znika, gdy pole zostanie poprawione
+    pola.forEach((pole) => {
+      const sprawdz = () => {
+        if (pole.getAttribute('aria-invalid') === 'true' && pole.checkValidity()) usunBlad(pole);
+      };
+      pole.addEventListener('input', sprawdz);
+      pole.addEventListener('change', sprawdz);
+    });
 
     formularz.addEventListener('submit', async (zdarzenie) => {
       zdarzenie.preventDefault();
 
-      if (!formularz.checkValidity()) {
-        pokaz(formularz, KOMUNIKATY.brakPol, 'blad');
-        formularz.querySelector<HTMLElement>(':invalid')?.focus();
+      const bledne = pola.filter((pole) => !pole.checkValidity());
+      pola.forEach((pole) => (bledne.includes(pole) ? pokazBlad(pole) : usunBlad(pole)));
+      if (bledne.length) {
+        pokaz(formularz, KOMUNIKATY.popraw + bledne.map(nazwaPola).join(', ') + '.', 'blad', false);
+        bledne[0].focus();
         return;
       }
 
@@ -255,9 +302,25 @@ const id = (pole: string) => `${nazwa}-${pole}`;
   .pole input:focus-visible,
   .pole select:focus-visible,
   .pole textarea:focus-visible {
-    outline: 3px solid var(--zloto);
-    outline-offset: 1px;
+    outline: 3px solid var(--braz);
+    outline-offset: 2px;
     border-color: var(--ciemny);
+  }
+
+  .pole [aria-invalid='true'] {
+    border-color: #8a2a1c;
+    border-width: 2px;
+  }
+
+  .pole :global(.pole__blad) {
+    margin: 0.4rem 0 0;
+    color: #8a2a1c;
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .pole--zgoda :global(.pole__blad) {
+    grid-column: 1 / -1;
   }
 
   .pole--zgoda {
